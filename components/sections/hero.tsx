@@ -1,0 +1,53 @@
+import React from "react";
+import styled from "styled-components";
+import Image from "next/image";
+
+import HeroImage from "../../assets/images/hero_img.png";
+import { TextBase } from "../items/textBase";
+import { SectionWrapper } from "../wrappers/sectionWrapper";
+
+export const Hero = () => {
+  return (
+    <SectionWrapper>
+      <HeroWrapper>
+        <Image src={HeroImage} alt="hero" width="1000%" height="550%" />
+        <TextContainer>
+          <Text margin="0 0 1rem 0" fontWeight={700} fontSize="2rem">
+            Own your community!
+          </Text>
+          <Text margin="0 0 1rem 0" fontSize="1.5rem">
+            <strong>A web3 decentralised layer</strong>, where users and content
+            creators can <strong>own their own social networking site.</strong>
+          </Text>
+          <Text margin="0 0 1rem 0" fontSize="1.5rem">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </Text>
+          <Text fontSize="1.5rem">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+          </Text>
+        </TextContainer>
+      </HeroWrapper>
+    </SectionWrapper>
+  );
+};
+
+const Text = styled(TextBase)`
+  max-width: 35rem;
+`;
+
+const HeroWrapper = styled.div`
+  padding: 9rem 1rem;
+  display: flex;
+  gap: 5rem;
+`;
+
+const TextContainer = styled.div`
+  max-width: 45%;
+  width: 100%;
+`;

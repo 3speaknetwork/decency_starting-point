@@ -8,14 +8,16 @@ export const Header = () => {
     <ContentWrapper>
       <HeaderWrapper>
         <ul>
-          <Link passHref={true} href="/">
+          <Link passHref={true} href="/setup">
             <li>Setup</li>
           </Link>
           <a href="#how-to">
             <li>How to</li>
           </a>
         </ul>
-        <Image src="/logo.svg" alt="logo" width={85} height={85} />
+        <Link passHref={true} href="/">
+          <Logo src="/logo.svg" alt="logo" width={85} height={85} />
+        </Link>
         <ul>
           <a>
             <li>Login</li>
@@ -25,6 +27,10 @@ export const Header = () => {
     </ContentWrapper>
   );
 };
+
+const Logo = styled(Image)`
+  cursor: pointer;
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
