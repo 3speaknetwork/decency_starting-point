@@ -10,7 +10,7 @@ export const Hero = () => {
   return (
     <SectionWrapper>
       <HeroWrapper>
-        <Image src={HeroImage} alt="hero" width="1000%" height="550%" />
+        <Image src={HeroImage} alt="hero" width={950} height={600} />
         <TextContainer>
           <Text margin="0 0 1rem 0" fontWeight={700} fontSize="2rem">
             Own your community!
