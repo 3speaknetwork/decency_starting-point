@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { STEPS } from "../../constants/how-to";
-import { HowToCard } from "../items/howToCard";
-import { TextBase } from "../items/textBase";
-import { SectionWrapper } from "../wrappers/sectionWrapper";
+import { STEPS } from "constants/how-to";
+import { HowToCard } from "components/items/howToCard";
+import { TextBase } from "components/items/textBase";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
 
 export const HowTo = () => {
   return (

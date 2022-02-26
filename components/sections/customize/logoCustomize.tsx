@@ -1,18 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
-import { SectionWrapper } from "../wrappers/sectionWrapper";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import styled from "styled-components";
-import { EditForm } from "../form/EditForm";
+import { EditForm } from "components/form/LogoEditForm";
 import { useRecoilState } from "recoil";
-import { logoSlice } from "../../state/user/slice";
+import { logoState } from "state/user/slice";
+import { PrimaryButton } from "components/items/primaryButton";
 
 interface Props {
   onNext: () => void;
 }
 
 export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
-  const [logo, setLogo] = useRecoilState(logoSlice);
+  const [logo, setLogo] = useRecoilState(logoState);
   const [edit, setEdit] = useState(false);
 
   const onChange = (
@@ -21,7 +22,7 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
   ) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
-    imageList[0] ? setLogo([imageList[0].dataURL] as string[]) : setLogo([]);
+    imageList[0] ? setLogo([imageList[0].dataURL] as never[]) : setLogo([]);
   };
 
   useEffect(() => {
@@ -103,26 +104,4 @@ const PlaceHolder = styled.div`
     border-radius: 50%;
   }
 
-`;
-
-const PrimaryButton = styled.button`
-  cursor: pointer;
-  display: inline-block;
-  padding: 0.35em 1.2em;
-  border: 0.1em solid #ffffff;
-  border-radius: 0.12em;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-family: "Roboto", sans-serif;
-  background-color: black;
-  font-weight: 300;
-  color: #ffffff;
-  text-align: center;
-  transition: all 0.2s;
-  overflow: hidden;
-
-  &:hover {
-    color: #000000;
-    background-color: #ffffff;
-  }
 `;

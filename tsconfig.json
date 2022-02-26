@@ -12,9 +12,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "baseUrl": ".",
     "jsx": "preserve",
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_document.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

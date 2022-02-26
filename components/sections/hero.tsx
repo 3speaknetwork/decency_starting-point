@@ -2,15 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
-import HeroImage from "../../assets/images/hero_img.png";
-import { TextBase } from "../items/textBase";
-import { SectionWrapper } from "../wrappers/sectionWrapper";
+import HeroImage from "assets/images/hero_img.png";
+import { TextBase } from "components/items/textBase";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
 
 export const Hero = () => {
   return (
     <SectionWrapper>
       <HeroWrapper>
-        <Image src={HeroImage} alt="hero" width={950} height={600} />
+        <Image src={HeroImage} alt="hero" width={800} height={500} />
         <TextContainer>
           <Text margin="0 0 1rem 0" fontWeight={700} fontSize="2rem">
             Own your community!
@@ -38,16 +38,16 @@ export const Hero = () => {
 };
 
 const Text = styled(TextBase)`
-  max-width: 35rem;
+  max-width: 40rem;
 `;
 
 const HeroWrapper = styled.div`
   padding: 9rem 1rem;
+  justify-content: center;
   display: flex;
-  gap: 5rem;
+  gap: 3rem;
 `;
 
 const TextContainer = styled.div`
-  max-width: 45%;
-  width: 100%;
+  width: 45rem;
 `;
