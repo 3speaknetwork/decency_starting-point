@@ -26,7 +26,7 @@ export const ColorEdit: React.FC<Props> = ({
     currentColors[colorType as "primary"]
   );
   const [error, setError] = useState(false);
-  var reg = /^#([0-9a-f]{3}){1,2}$/i;
+  var reg = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (reg.test(e.target.value.toUpperCase())) {
