@@ -6,7 +6,7 @@ import { EditForm } from "components/form/LogoEditForm";
 import { useRecoilState } from "recoil";
 import { logoState } from "state/user/slice";
 import { PrimaryButton } from "components/items/primaryButton";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 interface Props {
   onNext: () => void;

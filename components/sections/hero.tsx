@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 import HeroImage from "assets/images/hero_img.png";
 import { TextBase } from "components/items/textBase";

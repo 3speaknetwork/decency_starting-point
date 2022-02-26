@@ -5,7 +5,7 @@ import { TextBase } from "components/items/textBase";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { useRecoilState } from "recoil";
 import { colorState } from "state/user/slice";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 export enum ColorType {
   Primary = "primary",

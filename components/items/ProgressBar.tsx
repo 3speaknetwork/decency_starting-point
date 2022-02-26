@@ -2,7 +2,7 @@ import React from "react";
 import { HiChevronLeft, HiCheck } from "react-icons/hi";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { TextBase } from "components/items/textBase";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 interface Props {
   steps: string[];

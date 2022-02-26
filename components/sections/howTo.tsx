@@ -3,7 +3,7 @@ import { STEPS } from "constants/how-to";
 import { HowToCard } from "components/items/howToCard";
 import { TextBase } from "components/items/textBase";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 export const HowTo = () => {
   return (
@@ -26,7 +26,7 @@ export const HowTo = () => {
 };
 
 const StepsContainer = styled.div`
-  margin: 1.5rem 0 3rem;
+  margin: 1.5rem 0 10rem;
   display: flex;
   justify-content: center;
   gap: 3rem;
