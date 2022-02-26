@@ -1,5 +1,5 @@
+import styled from "@emotion/styled";
 import React from "react";
-import styled from "styled-components";
 
 export const SectionWrapper: React.FC = ({ children }) => {
   return <Section>{children}</Section>;

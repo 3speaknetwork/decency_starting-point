@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 interface Styles {
   display?: string;
@@ -30,9 +30,3 @@ export const TextBase = styled.p<Styles>`
   max-width: ${({ maxWidth }) => maxWidth || ""};
   letter-spacing: ${({ letterSpacing }) => letterSpacing || ""};
 `;
-
-export const TextBaseBold = styled(TextBase).attrs(
-  ({ fontWeight }: Styles) => ({
-    fontWeight: fontWeight || 600,
-  })
-)``;

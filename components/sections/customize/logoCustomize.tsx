@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import styled from "styled-components";
 import { EditForm } from "components/form/LogoEditForm";
 import { useRecoilState } from "recoil";
 import { logoState } from "state/user/slice";
 import { PrimaryButton } from "components/items/primaryButton";
+import styled from "@emotion/styled";
 
 interface Props {
   onNext: () => void;

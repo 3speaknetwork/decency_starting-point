@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { TextBase } from "./textBase";
+import styled from "@emotion/styled";
+import { TextBase } from "components/items/textBase";
 
 interface Props {
   title: string;

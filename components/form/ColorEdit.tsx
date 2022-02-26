@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import styled from "@emotion/styled";
 import { Input } from "@chakra-ui/react";
-import { useEffect } from "react";
-import styled from "styled-components";
 import { TextBase } from "components/items/textBase";
 
 interface Props {

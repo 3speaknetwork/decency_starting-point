@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const Header = () => {
   return (

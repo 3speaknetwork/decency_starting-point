@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { ColorEdit } from "components/form/ColorEdit";
 import { PrimaryButton } from "components/items/primaryButton";
 import { TextBase } from "components/items/textBase";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { useRecoilState } from "recoil";
 import { colorState } from "state/user/slice";
+import styled from "@emotion/styled";
 
 export enum ColorType {
   Primary = "primary",
