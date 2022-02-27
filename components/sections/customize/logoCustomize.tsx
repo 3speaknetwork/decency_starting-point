@@ -20,14 +20,8 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
-    // data for submit
-    console.log(imageList, addUpdateIndex);
     imageList[0] ? setLogo([imageList[0].dataURL] as never[]) : setLogo([]);
   };
-
-  useEffect(() => {
-    console.log(logo);
-  }, [logo]);
 
   return (
     <SectionWrapper>

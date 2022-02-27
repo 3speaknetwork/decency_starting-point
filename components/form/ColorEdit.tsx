@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input } from "@chakra-ui/react";
-import { TextBase } from "components/items/textBase";
+import { Input, Text } from "@chakra-ui/react";
 
 interface Props {
   title: string;
@@ -47,9 +46,9 @@ export const ColorEdit: React.FC<Props> = ({
 
   return (
     <div>
-      <TextBase textAlign="center" margin="0 0 0.5rem" fontSize="1.1rem">
+      <Text textAlign="center" margin="0 0 0.5rem" fontSize="1.1rem">
         {title}
-      </TextBase>
+      </Text>
       <Input
         isInvalid={error}
         onChange={handleChange}

@@ -6,6 +6,7 @@ import { LogoCustomize } from "components/sections/customize/logoCustomize";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { stepState } from "state/user/slice";
 import { ColorScheme } from "components/sections/customize/colorScheme";
+import { CommunityCustomize } from "components/sections/customize/communityCustomize";
 
 enum Steps {
   Logo = "Logo",
@@ -30,6 +31,9 @@ const Setup = () => {
       )}
       {steps[step] === Steps.Color && (
         <ColorScheme onNext={() => setStep(step + 1)} />
+      )}
+      {steps[step] === Steps.Community && (
+        <CommunityCustomize onNext={() => setStep(step + 1)} />
       )}
     </SectionWrapper>
   );

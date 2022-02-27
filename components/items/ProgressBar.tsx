@@ -1,8 +1,8 @@
 import React from "react";
 import { HiChevronLeft, HiCheck } from "react-icons/hi";
-import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { TextBase } from "components/items/textBase";
+import { Text } from "@chakra-ui/react";
 import styled from "styled-components";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
 
 interface Props {
   steps: string[];
@@ -19,7 +19,7 @@ export const ProgressBar: React.FC<Props> = ({
     <SectionWrapper>
       <BackButton onClick={onBack}>
         <HiChevronLeft />
-        <TextBase>Back</TextBase>
+        <Text>Back</Text>
       </BackButton>
       <StepsContainer currentIndex={currentIndex}>
         {steps.map((step, i) => (

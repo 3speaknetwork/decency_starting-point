@@ -1,11 +1,11 @@
 import React from "react";
-import { ColorEdit } from "components/form/ColorEdit";
-import { PrimaryButton } from "components/items/primaryButton";
-import { TextBase } from "components/items/textBase";
-import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { useRecoilState } from "recoil";
-import { colorState } from "state/user/slice";
 import styled from "styled-components";
+import { Text } from "@chakra-ui/react";
+import { PrimaryButton } from "components/items/primaryButton";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
+import { ColorEdit } from "components/form/ColorEdit";
+import { colorState } from "state/user/slice";
 
 export enum ColorType {
   Primary = "primary",
@@ -22,9 +22,9 @@ export const ColorScheme: React.FC<Props> = ({ onNext }) => {
 
   return (
     <SectionWrapper>
-      <TextBase fontSize="1.5rem" textAlign="center">
+      <Text fontSize="1.5rem" textAlign="center">
         Choose some of your favourite colors for the site:
-      </TextBase>
+      </Text>
       <EditWrapper>
         <ColorEdit
           currentColors={colors}
@@ -56,6 +56,7 @@ export const ColorScheme: React.FC<Props> = ({ onNext }) => {
 
 const EditWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 3rem;
   margin-top: 3rem;
 `;
