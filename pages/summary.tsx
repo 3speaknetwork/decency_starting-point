@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from "react";
-import { Text } from "@chakra-ui/react";
+import { color, Text } from "@chakra-ui/react";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { useRecoilState } from "recoil";
 import { colorState, infoState, logoState, stepState } from "state/user/slice";
@@ -21,6 +21,8 @@ const Summary = () => {
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
   }, []);
 
+  console.log(colors);
+
   return (
     <SectionWrapper>
       <SummaryIntro>
@@ -38,9 +40,45 @@ const Summary = () => {
           Welcome to your new video broadcasting website!
         </Text>
       </SummaryIntro>
+      <ColorWrapper>
+        <Wrapper>
+          <Text>Primary</Text>
+          <Color color={colors.primary} />
+        </Wrapper>
+        <Wrapper>
+          <Text>Secondary</Text>
+          <Color color={colors.secondary} />
+        </Wrapper>
+        <Wrapper>
+          <Text>Accents</Text>
+          <Color color={colors.accents} />
+        </Wrapper>
+      </ColorWrapper>
     </SectionWrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 15rem;
+  text-align: center;
+`;
+
+const Color = styled.div<{ color: string }>`
+  margin-top: 0.5rem;
+  padding: 1rem 0;
+  border: 1px solid black;
+  border-radius: var(--chakra-radii-md);
+  background-color: ${({ color }) => color || "white"};
+`;
+
+const ColorWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  gap: 3rem;
+  margin: 2rem auto 0;
+`;
 
 const Community = styled.div`
   display: flex;
