@@ -29,3 +29,14 @@ export const colorState = atom<{
     [ColorType.Secondary]: "",
   },
 });
+
+export const infoState = atom<{
+  title: string;
+  tags: string[];
+}>({
+  key: "info_state",
+  default: {
+    title: "",
+    tags: [],
+  },
+});

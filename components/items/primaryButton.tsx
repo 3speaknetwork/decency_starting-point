@@ -3,17 +3,23 @@ import styled from "styled-components";
 
 interface Props {
   margin?: string;
-  onClick: () => void;
   style?: any;
+  type?: string;
+  onClick?: () => void;
 }
 
 export const PrimaryButton: React.FC<Props> = ({
   children,
   onClick,
   margin,
+  type,
 }) => {
   return (
-    <PrimaryButtonComp margin={margin} onClick={onClick}>
+    <PrimaryButtonComp
+      type={type as "button"}
+      margin={margin}
+      onClick={onClick}
+    >
       {children}
     </PrimaryButtonComp>
   );

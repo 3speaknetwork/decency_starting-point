@@ -9,6 +9,7 @@ interface Props {
   onBlur: any;
   error: string;
   name: string;
+  type?: string;
   placeHolder: string;
 }
 
@@ -19,6 +20,7 @@ export const CommunityInput: React.FC<Props> = ({
   onChange,
   onBlur,
   error,
+  type = "string",
   name,
   placeHolder,
 }) => {
@@ -28,6 +30,7 @@ export const CommunityInput: React.FC<Props> = ({
         {title}
       </Text>
       <Input
+        type={type}
         mb={isInvalid ? 0 : 3}
         placeholder={placeHolder}
         name={name}
