@@ -35,14 +35,17 @@ export const ColorEdit: React.FC<Props> = ({
         ...currentColors,
         [colorType]: e.target.value,
       });
+      localStorage.setItem(
+        "colors",
+        JSON.stringify({
+          ...currentColors,
+          [colorType]: e.target.value,
+        })
+      );
     } else {
       setError(true);
     }
   };
-
-  useEffect(() => {
-    console.log(colorValue);
-  }, [colorValue]);
 
   return (
     <div>

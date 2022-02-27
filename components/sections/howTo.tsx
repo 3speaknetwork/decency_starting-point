@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "@chakra-ui/react";
-import { STEPS } from "constants/how-to";
+import { STEPS } from "constants/constants";
 import { HowToCard } from "components/items/howToCard";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import styled from "styled-components";

@@ -14,10 +14,15 @@ interface Props {
 export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
   const [info, setInfo] = useRecoilState(infoState);
 
+  console.log(info);
+
   return (
     <SectionWrapper>
       <Formik
-        initialValues={{ title: "", tags: "" }}
+        initialValues={{
+          title: info.title ?? "",
+          tags: info.tags.join(" ") ?? "",
+        }}
         validate={({ title, tags }) => {
           const errors: any = {};
 
@@ -35,7 +40,14 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
             tags: tags.split(" "),
           });
 
-          console.log(info);
+          localStorage.setItem(
+            "communityInfo",
+            JSON.stringify({
+              title: title,
+              tags: tags.split(" "),
+            })
+          );
+          onNext();
         }}
       >
         {({ values, errors, handleChange, handleBlur, handleSubmit }) => (

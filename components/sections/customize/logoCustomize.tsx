@@ -20,7 +20,16 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
-    imageList[0] ? setLogo([imageList[0].dataURL] as never[]) : setLogo([]);
+    if (imageList[0]) {
+      setLogo([imageList[0].dataURL] as never[]);
+      localStorage.setItem(
+        "logo",
+        JSON.stringify([imageList[0].dataURL] as never[])
+      );
+    } else {
+      localStorage.setItem("logo", JSON.stringify([]));
+      setLogo([]);
+    }
   };
 
   return (

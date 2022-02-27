@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
-import Image from "next/image";
 import styled from "styled-components";
 
 import HeroImage from "assets/images/hero_img.png";
@@ -10,7 +10,7 @@ export const Hero = () => {
   return (
     <SectionWrapper>
       <HeroWrapper>
-        <Image src={HeroImage} alt="hero" width={800} height={500} />
+        <Img src={HeroImage.src} alt="hero" width="100%" />
         <TextContainer>
           <TextComp margin="0 0 1rem 0" fontWeight={700} fontSize="2rem">
             Own your community!
@@ -39,6 +39,10 @@ export const Hero = () => {
 
 const TextComp = styled(Text)`
   max-width: 40rem;
+`;
+
+const Img = styled.img`
+  max-width: 55rem;
 `;
 
 const HeroWrapper = styled.div`
