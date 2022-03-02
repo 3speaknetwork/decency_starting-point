@@ -1,5 +1,4 @@
-import { ColorType } from "components/sections/customize/colorScheme";
-import { ImageListType } from "react-images-uploading";
+import { ColorSchemes } from "constants/constants";
 import { atom } from "recoil";
 
 export const userState = atom({
@@ -17,17 +16,9 @@ export const logoState = atom<string[]>({
   default: [],
 });
 
-export const colorState = atom<{
-  primary: string;
-  secondary: string;
-  accents: string;
-}>({
+export const colorState = atom<"sky_blue" | "dusk_yellow" | "burning_red">({
   key: "colors_state",
-  default: {
-    [ColorType.Primary]: "",
-    [ColorType.Accents]: "",
-    [ColorType.Secondary]: "",
-  },
+  default: "sky_blue",
 });
 
 export const infoState = atom<{

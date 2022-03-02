@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { Text } from "@chakra-ui/react";
+import { color, Select, Text } from "@chakra-ui/react";
 import { PrimaryButton } from "components/items/primaryButton";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { ColorEdit } from "components/form/ColorEdit";
+import { ColorEdit } from "components/form/ColorInput";
 import { colorState } from "state/user/slice";
+import { shcemes } from "constants/constants";
 
 export enum ColorType {
   Primary = "primary",
@@ -23,29 +24,26 @@ export const ColorScheme: React.FC<Props> = ({ onNext }) => {
   return (
     <SectionWrapper>
       <Text fontSize="1.5rem" textAlign="center">
-        Choose some of your favourite colors for the site:
+        Choose the color scheme for your site:
       </Text>
+      <Select
+        onChange={(e) => setColors(e.target.value as "sky_blue")}
+        mt={5}
+        maxW="md"
+      >
+        <option value="sky_blue">Sky blue</option>
+        <option value="dusk_yello">Dusk yellow</option>
+        <option value="burning_red">Burning red</option>
+      </Select>
       <EditWrapper>
+        <ColorEdit title="Primary" color={shcemes[colors].primary ?? "white"} />
         <ColorEdit
-          currentColors={colors}
-          title="Primary"
-          colorType={ColorType.Primary}
-          setColor={setColors}
-        />
-        <ColorEdit
-          currentColors={colors}
           title="Secondary"
-          colorType={ColorType.Secondary}
-          setColor={setColors}
+          color={shcemes[colors].secondary ?? "white"}
         />
-        <ColorEdit
-          currentColors={colors}
-          title="Accents"
-          colorType={ColorType.Accents}
-          setColor={setColors}
-        />
+        <ColorEdit title="Accents" color={shcemes[colors].accents ?? "white"} />
       </EditWrapper>
-      {colors.primary && colors.secondary && colors.accents && (
+      {colors && (
         <PrimaryButton margin="1.5rem 0 0" onClick={onNext}>
           Continue
         </PrimaryButton>
@@ -58,5 +56,5 @@ const EditWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 3rem;
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 `;
