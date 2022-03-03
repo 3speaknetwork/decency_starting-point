@@ -20,24 +20,24 @@ export const STEPS = [
 export enum ColorSchemes {
   SkyBlue = "sky_blue",
   DuskYellow = "dusk_yellow",
-  Burning_red = "burning_red",
+  BurningRed = "burning_red",
 }
 
 export const shcemes = {
   [ColorSchemes.SkyBlue]: {
-    primary: "#1232de",
-    secondary: "",
-    accents: "",
+    primary: "#1C658C",
+    secondary: "#398AB9",
+    accents: "#D8D2CB",
   },
   [ColorSchemes.DuskYellow]: {
-    primary: "",
-    secondary: "",
-    accents: "",
+    primary: "#FFF89A",
+    secondary: "#FFC900",
+    accents: "#086E7D",
   },
-  [ColorSchemes.Burning_red]: {
-    primary: "",
-    secondary: "",
-    accents: "",
+  [ColorSchemes.BurningRed]: {
+    primary: "#F90716",
+    secondary: "#FF5403",
+    accents: "#FFCA03",
   },
 };
 

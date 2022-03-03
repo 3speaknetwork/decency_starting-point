@@ -8,6 +8,8 @@ interface Props {
 }
 
 export const ColorEdit: React.FC<Props> = ({ title, color }) => {
+  console.log(color);
+
   return (
     <div>
       <Text textAlign="center" margin="0 0 0.5rem" fontSize="1.1rem">
