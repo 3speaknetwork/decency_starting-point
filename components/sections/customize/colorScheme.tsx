@@ -36,6 +36,7 @@ export const ColorScheme: React.FC<Props> = ({ onNext }) => {
         }
         mt={5}
         maxW="md"
+        value={colors}
       >
         <option value={ColorSchemes.SkyBlue}>Sky blue</option>
         <option value={ColorSchemes.DuskYellow}>Dusk yellow</option>
