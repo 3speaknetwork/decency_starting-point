@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
@@ -13,6 +13,11 @@ interface Props {
 
 export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
   const [info, setInfo] = useRecoilState(infoState);
+  const [showCommunity, setShowCommunity] = useState(false);
+
+  useEffect(() => {
+    console.log("search communities");
+  }, [info.hive_id]);
 
   return (
     <SectionWrapper>
@@ -25,7 +30,7 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
           const errors: any = {};
 
           if (hive_id === "") {
-            errors.title = "Required!";
+            errors.hive_id = "Required!";
           } else if (tags === "") {
             errors.tags = "Required!";
           }
@@ -45,7 +50,6 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
               tags: tags.split(" "),
             })
           );
-          onNext();
         }}
       >
         {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
