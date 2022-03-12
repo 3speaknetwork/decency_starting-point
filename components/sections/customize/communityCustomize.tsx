@@ -1,11 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { useRecoilState } from "recoil";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { CommunityInput } from "components/form/CommunityInput";
 import { PrimaryButton } from "components/items/primaryButton";
-import { useRecoilState } from "recoil";
 import { infoState } from "state/user/slice";
+import { getCommunity } from "api";
 
 interface Props {
   onNext: () => void;
@@ -13,10 +16,28 @@ interface Props {
 
 export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
   const [info, setInfo] = useRecoilState(infoState);
-  const [showCommunity, setShowCommunity] = useState(false);
+  const [showCommunity, setShowCommunity] = useState<{
+    title: string;
+    logo: string;
+    about: string;
+  } | null>(null);
 
   useEffect(() => {
     console.log("search communities");
+    if (info.hive_id) {
+      (async () => {
+        const response = await getCommunity(info.hive_id);
+        if (response) {
+          const logo = `https://images.ecency.com/u/${response.name}/avatar/lardge`;
+          const { title, about } = response;
+          setShowCommunity({
+            title,
+            about,
+            logo,
+          });
+        }
+      })();
+    }
   }, [info.hive_id]);
 
   return (
@@ -54,7 +75,7 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
       >
         {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
           <>
-            <CustomizeWrapper>
+            <CustomizeWrapper gap="2rem" mb="0.5rem">
               <CommunityInput
                 title="Community hive ID"
                 error={errors.hive_id ?? ""}
@@ -80,13 +101,69 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
           </>
         )}
       </Formik>
+      {showCommunity && (
+        <Box>
+          <Flex
+            justifyContent="space-between"
+            gap={5}
+            alignItems="center"
+            mt={9}
+            border="2px solid black"
+            p={3}
+            borderRadius="1rem"
+          >
+            <Flex direction="column" alignItems="center">
+              <LogoWrapper mb={4}>
+                <img
+                  src={showCommunity.logo}
+                  alt="community logo"
+                  width="100%"
+                />
+              </LogoWrapper>
+              <Text fontWeight={600}>{showCommunity.title}</Text>
+            </Flex>
+            <Flex maxW="15rem">
+              <Text fontSize="1.2rem">{showCommunity.about}</Text>
+            </Flex>
+          </Flex>
+          <Flex mt={5} alignItems="center" direction="column">
+            <Text
+              maxW="20rem"
+              fontWeight={500}
+              fontSize="1.1rem"
+              align="center"
+              mb={3}
+            >
+              Is this the community you want to make a page about?
+            </Text>
+            <PrimaryButton onClick={onNext}>Yes</PrimaryButton>
+          </Flex>
+        </Box>
+      )}
     </SectionWrapper>
   );
 };
 
-const CustomizeWrapper = styled.div`
+const LogoWrapper = styled(Box)`
+  position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  border 2px solid black;
+
+  
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+`;
+
+const CustomizeWrapper = styled(Flex)`
   flex-wrap: wrap;
-  gap: 2rem;
-  margin-bottom: 1rem;
 `;

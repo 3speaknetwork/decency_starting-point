@@ -2,27 +2,32 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import { Flex } from "@chakra-ui/react";
 
 export const Header = () => {
   return (
     <ContentWrapper>
       <HeaderWrapper>
-        <ul>
-          <Link passHref={true} href="/setup">
-            <li>Setup</li>
-          </Link>
-          <a href="#how-to">
-            <li>How to</li>
-          </a>
-        </ul>
+        <Flex width="15rem" justifyContent="flex-start">
+          <ul>
+            <Link passHref={true} href="/setup">
+              <li>Setup</li>
+            </Link>
+            <a href="#how-to">
+              <li>How to</li>
+            </a>
+          </ul>
+        </Flex>
         <Link passHref={true} href="/">
           <Logo src="/logo.svg" alt="logo" width={85} height={85} />
         </Link>
-        <ul>
-          <a>
-            <li>Login</li>
-          </a>
-        </ul>
+        <Flex width="15rem" justifyContent="flex-end">
+          <ul>
+            <a>
+              <li>Login</li>
+            </a>
+          </ul>
+        </Flex>
       </HeaderWrapper>
     </ContentWrapper>
   );
@@ -51,7 +56,6 @@ const HeaderWrapper = styled.div`
     display: flex;
     gap: 1.1rem;
     padding: 0;
-    width: 15%;
 
     li {
       cursor: pointer;
