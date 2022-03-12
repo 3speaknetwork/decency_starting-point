@@ -51,6 +51,7 @@ const HeaderWrapper = styled.div`
     display: flex;
     gap: 1.1rem;
     padding: 0;
+    width: 15%;
 
     li {
       cursor: pointer;

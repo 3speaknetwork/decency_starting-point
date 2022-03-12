@@ -22,12 +22,12 @@ export const colorState = atom<"sky_blue" | "dusk_yellow" | "burning_red">({
 });
 
 export const infoState = atom<{
-  title: string;
+  hive_id: string;
   tags: string[];
 }>({
   key: "info_state",
   default: {
-    title: "",
+    hive_id: "",
     tags: [],
   },
 });

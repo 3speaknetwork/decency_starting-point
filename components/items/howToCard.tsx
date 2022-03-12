@@ -27,9 +27,8 @@ const CardWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 0.5rem 1.5rem;
   padding: 2rem;
   border-radius: 1.2rem;
-  max-width: 24rem;
   text-align: center;
 `;

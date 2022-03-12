@@ -24,5 +24,5 @@ const StepsContainer = styled.div`
   margin: 1.5rem 0 10rem;
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 1.5rem;
 `;

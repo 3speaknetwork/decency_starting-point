@@ -14,19 +14,17 @@ interface Props {
 export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
   const [info, setInfo] = useRecoilState(infoState);
 
-  console.log(info);
-
   return (
     <SectionWrapper>
       <Formik
         initialValues={{
-          title: info.title ?? "",
+          hive_id: info.hive_id ?? "",
           tags: info.tags.join(" ") ?? "",
         }}
-        validate={({ title, tags }) => {
+        validate={({ hive_id, tags }) => {
           const errors: any = {};
 
-          if (title === "") {
+          if (hive_id === "") {
             errors.title = "Required!";
           } else if (tags === "") {
             errors.tags = "Required!";
@@ -34,16 +32,16 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
 
           return errors;
         }}
-        onSubmit={({ title, tags }) => {
+        onSubmit={({ hive_id, tags }) => {
           setInfo({
-            title: title,
+            hive_id: hive_id,
             tags: tags.split(" "),
           });
 
           localStorage.setItem(
             "communityInfo",
             JSON.stringify({
-              title: title,
+              hive_id,
               tags: tags.split(" "),
             })
           );
@@ -54,14 +52,14 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
           <>
             <CustomizeWrapper>
               <CommunityInput
-                title="Title"
-                error={errors.title ?? ""}
-                isInvalid={!!errors.title}
+                title="Community hive ID"
+                error={errors.hive_id ?? ""}
+                isInvalid={!!errors.hive_id}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.title}
-                name="title"
-                placeHolder="Title"
+                value={values.hive_id}
+                name="hive_id"
+                placeHolder="hive-112019"
               />
               <CommunityInput
                 title="Tags"

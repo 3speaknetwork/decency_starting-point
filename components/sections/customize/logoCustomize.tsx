@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Text } from "@chakra-ui/react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { EditForm } from "components/form/LogoEditForm";
@@ -34,8 +35,11 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
 
   return (
     <SectionWrapper>
+      <Text mb={8} fontWeight={600} fontSize="1.1rem">
+        Upload an ICO file to your community website
+      </Text>
       <ImageUploading
-        acceptType={["jpeg", "png"]}
+        acceptType={["ico"]}
         value={[]}
         maxNumber={1}
         onChange={onChange}
