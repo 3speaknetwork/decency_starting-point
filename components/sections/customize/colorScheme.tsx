@@ -21,8 +21,6 @@ interface Props {
 export const ColorScheme: React.FC<Props> = ({ onNext }) => {
   const [colors, setColors] = useRecoilState(colorState);
 
-  console.log(colors);
-
   return (
     <SectionWrapper>
       <Text fontSize="1.5rem" textAlign="center">
