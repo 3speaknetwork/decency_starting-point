@@ -23,7 +23,6 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
   } | null>(null);
 
   useEffect(() => {
-    console.log("search communities");
     if (info.hive_id) {
       (async () => {
         const response = await getCommunity(info.hive_id);

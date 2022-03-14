@@ -1,16 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from "react";
-import { color, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Text } from "@chakra-ui/react";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { useRecoilState } from "recoil";
-import { colorState, infoState, logoState, stepState } from "state/user/slice";
-import { placeholder } from "constants/constants";
+import { colorState, infoState, logoState } from "state/user/slice";
+import { placeholder, shcemes } from "constants/constants";
 import styled from "styled-components";
+import { getCommunity } from "api";
+import { ColorEdit } from "components/form/ColorInput";
 
 const Summary = () => {
   const [logo, setLogo] = useRecoilState(logoState);
   const [colors, setColors] = useRecoilState(colorState);
   const [communityInfo, setInfo] = useRecoilState(infoState);
+  const [hiveComm, setHiveComm] = useState({
+    logo: "",
+    name: "",
+  });
 
   useEffect(() => {
     localStorage.getItem("logo") &&
@@ -21,38 +27,50 @@ const Summary = () => {
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
   }, []);
 
-  console.log(colors);
+  useEffect(() => {
+    if (communityInfo.hive_id) {
+      (async () => {
+        const response = await getCommunity(communityInfo.hive_id);
+        if (response) {
+          const logo = `https://images.ecency.com/u/${response.name}/avatar/lardge`;
+          const { title } = response;
+          setHiveComm({
+            logo,
+            name: title,
+          });
+        }
+      })();
+    }
+  }, [communityInfo.hive_id]);
 
   return (
     <SectionWrapper>
       <SummaryIntro>
         <Community>
-          {logo[0] ? (
-            <Img src={logo[0]} alt="logo" width="100%" />
+          {hiveComm.logo ? (
+            <Img src={hiveComm.logo} alt="logo" width="100%" />
           ) : (
             <Img src={placeholder} alt="placeholder" width="100%" />
           )}
-          <Text fontSize="1.3rem">
-            {communityInfo.title ?? "Example title"}
-          </Text>
+          <Text fontSize="1.3rem">{hiveComm.name ?? "Example title"}</Text>
         </Community>
         <Text maxWidth="25rem" fontSize="1.5rem" fontWeight={500}>
           Welcome to your new video broadcasting website!
         </Text>
       </SummaryIntro>
       <ColorWrapper>
-        <Wrapper>
-          <Text>Primary</Text>
-          <Color color={colors.primary} />
-        </Wrapper>
-        <Wrapper>
-          <Text>Secondary</Text>
-          <Color color={colors.secondary} />
-        </Wrapper>
-        <Wrapper>
-          <Text>Accents</Text>
-          <Color color={colors.accents} />
-        </Wrapper>
+        <ColorEdit
+          title="Primary"
+          color={shcemes[colors]?.primary ?? "white"}
+        />
+        <ColorEdit
+          title="Secondary"
+          color={shcemes[colors]?.secondary ?? "white"}
+        />
+        <ColorEdit
+          title="Accents"
+          color={shcemes[colors]?.accents ?? "white"}
+        />
       </ColorWrapper>
     </SectionWrapper>
   );
