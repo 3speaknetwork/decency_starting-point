@@ -18,38 +18,41 @@ enum Steps {
 
 interface Props {
   create: boolean;
-  handleBack: () => void;
+  onExit: () => void;
 }
 
-export const Proccess: React.FC<Props> = ({ create, handleBack }) => {
+export const Proccess: React.FC<Props> = ({ create, onExit }) => {
   const [step, setStep] = useRecoilState(stepState);
   const steps = create
     ? [Steps.Community, Steps.Conrifmation, Steps.Logo, Steps.Color]
     : [Steps.Logo, Steps.Color, Steps.Community];
   const router = useRouter();
 
+  const handleBack = () => {
+    if (step === 0) {
+      onExit();
+    } else {
+      setStep(step - 1);
+    }
+  };
+
   return (
     <>
       <ProgressBar onBack={handleBack} currentIndex={step} steps={steps} />
-      {create ? (
-        <Box>
-          {steps[step] === Steps.Community && (
-            <CommunityCreate onNext={() => router.push("/summary")} />
-          )}
-        </Box>
-      ) : (
-        <Box>
-          {steps[step] === Steps.Logo && (
-            <LogoCustomize onNext={() => setStep(step + 1)} />
-          )}
-          {steps[step] === Steps.Color && (
-            <ColorScheme onNext={() => setStep(step + 1)} />
-          )}
-          {steps[step] === Steps.Community && (
-            <CommunityCustomize onNext={() => router.push("/summary")} />
-          )}
-        </Box>
-      )}
+      <Box>
+        {steps[step] === Steps.Logo && (
+          <LogoCustomize onNext={() => setStep(step + 1)} />
+        )}
+        {steps[step] === Steps.Color && (
+          <ColorScheme onNext={() => setStep(step + 1)} />
+        )}
+        {steps[step] === Steps.Community && !create && (
+          <CommunityCustomize onNext={() => router.push("/summary")} />
+        )}
+        {steps[step] === Steps.Community && create && (
+          <CommunityCreate onNext={() => setStep(step + 1)} />
+        )}
+      </Box>
     </>
   );
 };

@@ -23,10 +23,11 @@ const Setup = () => {
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
   }, []);
 
+
   return (
     <SectionWrapper>
       {asked ? (
-        <Proccess handleBack={() => setAsked(false)} create={create} />
+        <Proccess onExit={() => setAsked(false)} create={create} />
       ) : (
         <Flex alignItems="center" justifyContent="center" gap={9} minH="2xl">
           <OptionCard
