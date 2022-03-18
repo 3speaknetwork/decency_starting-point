@@ -1,9 +1,20 @@
 import { ColorSchemes } from "constants/constants";
 import { atom } from "recoil";
 
-export const userState = atom({
+export const userState = atom<any>({
   key: "user_state",
   default: null,
+});
+
+export const communityCreationState = atom({
+  key: "community_state",
+  default: {
+    title: "",
+    about: "",
+    fee: "",
+    wif: "",
+    communityHiveID: "",
+  },
 });
 
 export const stepState = atom<number>({

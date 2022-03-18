@@ -8,6 +8,7 @@ import { LogoCustomize } from "./customize/logoCustomize";
 import { CommunityCreate } from "./customize/communityCreate";
 import { useRecoilState } from "recoil";
 import { stepState } from "state/user/slice";
+import { CommunityConfirmation } from "./communityConfirmation";
 
 enum Steps {
   Logo = "Logo",
@@ -30,6 +31,7 @@ export const Proccess: React.FC<Props> = ({ create, onExit }) => {
 
   const handleBack = () => {
     if (step === 0) {
+      setStep(0);
       onExit();
     } else {
       setStep(step - 1);
@@ -44,13 +46,20 @@ export const Proccess: React.FC<Props> = ({ create, onExit }) => {
           <LogoCustomize onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Color && (
-          <ColorScheme onNext={() => setStep(step + 1)} />
+          <ColorScheme
+            onNext={() =>
+              create ? router.push("/summary") : setStep(step + 1)
+            }
+          />
         )}
         {steps[step] === Steps.Community && !create && (
           <CommunityCustomize onNext={() => router.push("/summary")} />
         )}
         {steps[step] === Steps.Community && create && (
           <CommunityCreate onNext={() => setStep(step + 1)} />
+        )}
+        {steps[step] === Steps.Conrifmation && (
+          <CommunityConfirmation onNext={() => setStep(step + 1)} />
         )}
       </Box>
     </>

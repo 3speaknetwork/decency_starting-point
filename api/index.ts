@@ -52,18 +52,21 @@ export const getCommunity = (
 interface CreateCommunityPayload {
   username: string;
   communityName: string;
-  auths: {
-    owner: string;
-    active: string;
-    posting: string;
-  };
+  aboutCommunity: string;
+  fee: string;
+  communityHiveID: string;
 }
 
-const makePrivateKeys = (communityName: string) => {
-  const wif = base58.encode(
-    cryptoUtils.sha256(Math.random().toString(36).substring(7))
-  );
+const genUsername = (): string => {
+  return `hive-${Math.floor(Math.random() * 100000) + 100000}`;
+};
 
+const genWif = (): string =>
+  "P" +
+  base58.encode(cryptoUtils.sha256(Math.random().toString(36).substring(7)));
+
+const makePrivateKeys = (communityName: string) => {
+  const wif = genWif();
   return {
     ownerKey: PrivateKey.fromLogin(communityName, wif, "owner"),
     activeKey: PrivateKey.fromLogin(communityName, wif, "active"),
@@ -72,25 +75,34 @@ const makePrivateKeys = (communityName: string) => {
   };
 };
 
+export const getCommunityCreationInfo = async () => {
+  const communityHiveID = genUsername();
+  const wif = genWif();
+  const r = await hiveClient.database.getChainProperties();
+  const asset = parseAsset(r.account_creation_fee.toString());
+  const fee = `${numeral(asset.amount).format("0.000")} ${asset.symbol}`;
+
+  return {
+    username: communityHiveID,
+    fee,
+    wif,
+  };
+};
+
 export const createCommunity = async ({
   username,
   communityName,
+  fee,
+  communityHiveID,
 }: CreateCommunityPayload) => {
-  let fee = "";
-
-  hiveClient.database.getChainProperties().then((r) => {
-    const asset = parseAsset(r.account_creation_fee.toString());
-    fee = `${numeral(asset.amount).format("0.000")} ${asset.symbol}`;
-  });
-
   if (fee) {
-    const keys = makePrivateKeys(communityName);
+    const keys = makePrivateKeys(communityHiveID);
     const operations = [
       "account_create",
       {
         fee,
         creator: username,
-        new_account_name: communityName,
+        new_account_name: communityHiveID,
         owner: {
           weight_threshold: 1,
           account_auths: [],
