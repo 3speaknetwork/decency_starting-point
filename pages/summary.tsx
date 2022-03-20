@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
-import { Text } from "@chakra-ui/react";
-import { SectionWrapper } from "components/wrappers/sectionWrapper";
+import React, { useEffect, useMemo, useState } from "react";
+import { FaCopy } from "react-icons/fa";
+import { color, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
-import { colorState, infoState, logoState } from "state/user/slice";
-import { placeholder, shcemes } from "constants/constants";
 import styled from "styled-components";
-import { getCommunity } from "api";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
+import { colorState, infoState } from "state/user/slice";
+import { placeholder, shcemes } from "constants/constants";
 import { ColorEdit } from "components/form/ColorInput";
+import { getCommunity } from "api";
 
 const Summary = () => {
-  const [logo, setLogo] = useRecoilState(logoState);
   const [colors, setColors] = useRecoilState(colorState);
   const [communityInfo, setInfo] = useRecoilState(infoState);
   const [hiveComm, setHiveComm] = useState({
@@ -19,8 +19,6 @@ const Summary = () => {
   });
 
   useEffect(() => {
-    localStorage.getItem("logo") &&
-      setLogo(JSON.parse(localStorage.getItem("logo") as string));
     localStorage.getItem("colors") &&
       setColors(JSON.parse(localStorage.getItem("colors") as string));
     localStorage.getItem("communityInfo") &&
@@ -42,6 +40,10 @@ const Summary = () => {
       })();
     }
   }, [communityInfo.hive_id]);
+
+  const textToCopy = `sudo docker run -p 3000:3000 -e RAZZLE_THEME='${
+    colors.split("_")[0]
+  }' -e RAZZLE_HIVE_ID='${communityInfo.hive_id}' pspc/ecency-boilerplate`;
 
   return (
     <SectionWrapper>
@@ -72,6 +74,31 @@ const Summary = () => {
           color={shcemes[colors]?.accents ?? "white"}
         />
       </ColorWrapper>
+      <Flex mt={6} justifyContent="center">
+        <Text
+          backgroundColor="gray.700"
+          p={2}
+          borderLeftRadius="0.4rem"
+          color="white"
+        >
+          {textToCopy}
+        </Text>
+        <Flex
+          alignItems="center"
+          p={2}
+          onClick={() => {
+            navigator.clipboard.writeText(textToCopy);
+          }}
+          cursor="pointer"
+          borderRightRadius="0.4rem"
+          color="white"
+          backgroundColor="gray.500"
+        >
+          <Text>
+            <FaCopy />
+          </Text>
+        </Flex>
+      </Flex>
     </SectionWrapper>
   );
 };
