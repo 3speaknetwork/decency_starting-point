@@ -9,7 +9,7 @@ export const STEPS = [
   },
   {
     title: "Colours",
-    desc: "Selected a preferred colour scheme, that includes one of the following - 'Sky blue', 'Dusk yellow', 'Burning red'",
+    desc: "Selected a preferred colour scheme",
   },
   {
     title: "Community Details",
