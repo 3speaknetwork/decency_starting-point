@@ -54,6 +54,7 @@ interface CreateCommunityPayload {
   communityName: string;
   aboutCommunity: string;
   fee: string;
+  wif: string;
   communityHiveID: string;
 }
 
@@ -65,8 +66,7 @@ const genWif = (): string =>
   "P" +
   base58.encode(cryptoUtils.sha256(Math.random().toString(36).substring(7)));
 
-const makePrivateKeys = (communityName: string) => {
-  const wif = genWif();
+const makePrivateKeys = (communityName: string, wif: string) => {
   return {
     ownerKey: PrivateKey.fromLogin(communityName, wif, "owner"),
     activeKey: PrivateKey.fromLogin(communityName, wif, "active"),
@@ -94,9 +94,10 @@ export const createCommunity = async ({
   communityName,
   fee,
   communityHiveID,
+  wif,
 }: CreateCommunityPayload) => {
   if (fee) {
-    const keys = makePrivateKeys(communityHiveID);
+    const keys = makePrivateKeys(communityHiveID, wif);
     const operations = [
       "account_create",
       {

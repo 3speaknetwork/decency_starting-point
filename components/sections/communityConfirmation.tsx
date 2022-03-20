@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { communityCreationState } from "state/user/slice";
 import { PrimaryButton } from "components/items/primaryButton";
+import { createCommunity } from "api";
 
 interface Props {
   onNext: () => void;
@@ -11,6 +12,22 @@ interface Props {
 
 export const CommunityConfirmation: React.FC<Props> = ({ onNext }) => {
   const communityInfo = useRecoilValue(communityCreationState);
+
+  const handleCreateCommunity = () => {
+    (async () => {
+      const response = await createCommunity({
+        username: "psorigins",
+        aboutCommunity: communityInfo.about,
+        communityName: communityInfo.title,
+        communityHiveID: communityInfo.communityHiveID,
+        fee: communityInfo.fee,
+        wif: communityInfo.wif,
+      });
+
+      console.log(response);
+      onNext();
+    })();
+  };
 
   return (
     <SectionWrapper>
@@ -40,7 +57,7 @@ export const CommunityConfirmation: React.FC<Props> = ({ onNext }) => {
         </Text>
       </Flex>
       <Flex mt={4} justifyContent="center">
-        <PrimaryButton onClick={onNext}>Confirm</PrimaryButton>
+        <PrimaryButton onClick={handleCreateCommunity}>Confirm</PrimaryButton>
       </Flex>
     </SectionWrapper>
   );

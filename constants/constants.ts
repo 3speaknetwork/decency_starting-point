@@ -1,19 +1,23 @@
 export const STEPS = [
   {
-    title: "Excepteur sint",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    title: "Community",
+    desc: "Create a Hive community (if you don't already have one)",
   },
   {
-    title: "Excepteur sint",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    title: "Logos",
+    desc: "Upload an ICO (icon/ image/ logo)  file for the community metadata tags",
   },
   {
-    title: "Excepteur sint",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    title: "Colours",
+    desc: "Selected a preferred colour scheme, that includes one of the following - 'Sky blue', 'Dusk yellow', 'Burning red'",
   },
   {
-    title: "Excepteur sint",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    title: "Community Details",
+    desc: "Enter basic info and details about the community you created (or already had)",
+  },
+  {
+    title: "Enjoy!",
+    desc: "Run our docker image from your server and point it to your URL and you have your own social media site!",
   },
 ];
 
