@@ -41,7 +41,7 @@ const Summary = () => {
     }
   }, [communityInfo.hive_id]);
 
-  const textToCopy = `sudo docker run -p 3000:3000 -e RAZZLE_THEME='${
+  const textToCopy = `sudo docker run -d -p 80:3000 -e RAZZLE_THEME='${
     colors.split("_")[0]
   }' -e RAZZLE_HIVE_ID='${communityInfo.hive_id}' pspc/ecency-boilerplate`;
 
@@ -102,19 +102,6 @@ const Summary = () => {
     </SectionWrapper>
   );
 };
-
-const Wrapper = styled.div`
-  width: 15rem;
-  text-align: center;
-`;
-
-const Color = styled.div<{ color: string }>`
-  margin-top: 0.5rem;
-  padding: 1rem 0;
-  border: 1px solid black;
-  border-radius: var(--chakra-radii-md);
-  background-color: ${({ color }) => color || "white"};
-`;
 
 const ColorWrapper = styled.div`
   display: flex;
