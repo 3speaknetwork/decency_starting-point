@@ -9,6 +9,9 @@ interface IProps {
 export const ModalWrapper: React.FC<IProps> = ({ children, onClose }) => {
   useEffect(() => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
+    return () => {
+      document.getElementsByTagName("html")[0].style.overflow = "auto";
+    };
   }, []);
 
   return (

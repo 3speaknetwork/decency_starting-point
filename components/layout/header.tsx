@@ -24,7 +24,6 @@ export const Header = () => {
   }, []);
 
   const handleLogin = async () => {
-    console.log("Login", username);
     const response: any = await login(username);
     if (response.success && response.data.username === username) {
       hive.api.getAccounts([username], async (err: any, res: any) => {
