@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { communityCreationState } from "state/user/slice";
+import { communityCreationState, userState } from "state/user/slice";
 import { PrimaryButton } from "components/items/primaryButton";
 import { createCommunity } from "api";
 
@@ -12,11 +12,12 @@ interface Props {
 
 export const CommunityConfirmation: React.FC<Props> = ({ onNext }) => {
   const communityInfo = useRecoilValue(communityCreationState);
+  const user: any = useRecoilValue(userState);
 
   const handleCreateCommunity = () => {
     (async () => {
       const response = await createCommunity({
-        username: "psorigins",
+        username: user.name,
         aboutCommunity: communityInfo.about,
         communityName: communityInfo.title,
         communityHiveID: communityInfo.communityHiveID,

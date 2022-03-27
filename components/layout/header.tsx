@@ -125,6 +125,7 @@ const HeaderWrapper = styled.div`
   max-width: 70rem;
   width: 100%;
   justify-content: space-between;
+  z-index: 999;
 
   ul {
     text-decoration: none;

@@ -17,6 +17,7 @@ export const ModalWrapper: React.FC<IProps> = ({ children, onClose }) => {
   return (
     <Box
       position="absolute"
+      zIndex={999}
       display="flex"
       justifyContent="center"
       alignItems="center"
