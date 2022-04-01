@@ -5,7 +5,7 @@ import { color, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { colorState, infoState } from "state/user/slice";
+import { colorState, infoState, logoState } from "state/user/slice";
 import { placeholder, shcemes } from "constants/constants";
 import { ColorEdit } from "components/form/ColorInput";
 import { getCommunity } from "api";
@@ -13,6 +13,7 @@ import { getCommunity } from "api";
 const Summary = () => {
   const [colors, setColors] = useRecoilState(colorState);
   const [communityInfo, setInfo] = useRecoilState(infoState);
+  const logo = useRecoilState(logoState);
   const [hiveComm, setHiveComm] = useState({
     logo: "",
     name: "",
@@ -41,9 +42,9 @@ const Summary = () => {
     }
   }, [communityInfo.hive_id]);
 
-  const textToCopy = `sudo docker run -d -p 80:3000 -e RAZZLE_THEME='${
-    colors.split("_")[0]
-  }' -e RAZZLE_HIVE_ID='${communityInfo.hive_id}' pspc/ecency-boilerplate`;
+  const textToCopy = `RAZZLE_HIVE_ID=${
+    communityInfo.hive_id
+  }<br/>RAZZLE_THEME=${colors}<br/>RAZZLE_RAGS=${communityInfo.tags.join(",")}`;
 
   return (
     <SectionWrapper>
@@ -74,15 +75,27 @@ const Summary = () => {
           color={shcemes[colors]?.accents ?? "white"}
         />
       </ColorWrapper>
+      <Text mt={6} maxW="sm" align="center">
+        Go to this{" "}
+        <GithubLink
+          href="https://github.com/3speaknetwork/ecency-boilerplate"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github repo
+        </GithubLink>
+        , and read the README attached! Below is your <i>.env.local</i> file
+        &#128513;
+      </Text>
       <Flex mt={6} justifyContent="center">
         <Text
           backgroundColor="gray.700"
           p={2}
           borderLeftRadius="0.4rem"
           color="white"
-        >
-          {textToCopy}
-        </Text>
+          maxWidth="xl"
+          dangerouslySetInnerHTML={{ __html: textToCopy }}
+        />
         <Flex
           alignItems="center"
           p={2}
@@ -102,6 +115,16 @@ const Summary = () => {
     </SectionWrapper>
   );
 };
+
+const GithubLink = styled.a`
+  font-weight: 700;
+  text-decoration: underline;
+  transition: 0.2s all ease;
+
+  &:hover {
+    color: blue;
+  }
+`;
 
 const ColorWrapper = styled.div`
   display: flex;
