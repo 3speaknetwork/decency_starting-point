@@ -1,28 +1,26 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Router from "next/router";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
-import { ProgressBar } from "components/items/ProgressBar";
-import { LogoCustomize } from "components/sections/customize/logoCustomize";
+import { IoMdCreate, IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { colorState, infoState, logoState, userState } from "state/user/slice";
+import { Proccess } from "components/sections/Proccess";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { colorState, infoState, logoState, stepState } from "state/user/slice";
-import { ColorScheme } from "components/sections/customize/colorScheme";
-import { CommunityCustomize } from "components/sections/customize/communityCustomize";
 
-enum Steps {
-  Logo = "Logo",
-  Color = "Color scheme",
-  Community = "Community info",
-}
-
-const steps = [Steps.Logo, Steps.Color, Steps.Community];
 const Setup = () => {
+  const [asked, setAsked] = useState(false);
+  const [create, setCreate] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
   const [_logo, setLogo] = useRecoilState(logoState);
   const [_colors, setColors] = useRecoilState(colorState);
   const [_info, setInfo] = useRecoilState(infoState);
-  const [step, setStep] = useRecoilState(stepState);
-  const router = useRouter();
 
   useEffect(() => {
+    if (!user) {
+      Router.push("/");
+    }
+
     localStorage.getItem("logo") &&
       setLogo(JSON.parse(localStorage.getItem("logo") as string));
     localStorage.getItem("colors") &&
@@ -31,24 +29,58 @@ const Setup = () => {
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
   }, []);
 
-  const handleBack = () => {
-    step === 0 ? router.push("/") : setStep(step - 1);
-  };
-
   return (
     <SectionWrapper>
-      <ProgressBar onBack={handleBack} currentIndex={step} steps={steps} />
-      {steps[step] === Steps.Logo && (
-        <LogoCustomize onNext={() => setStep(step + 1)} />
-      )}
-      {steps[step] === Steps.Color && (
-        <ColorScheme onNext={() => setStep(step + 1)} />
-      )}
-      {steps[step] === Steps.Community && (
-        <CommunityCustomize onNext={() => router.push("/summary")} />
+      {asked ? (
+        <Proccess onExit={() => setAsked(false)} create={create} />
+      ) : (
+        <Flex alignItems="center" justifyContent="center" gap={9} minH="2xl">
+          <OptionCard
+            onClick={() => {
+              setCreate(true);
+              setAsked(true);
+            }}
+            maxW="20rem"
+            height="12rem"
+            border="2px solid black"
+            borderRadius="1rem"
+            p={9}
+            justifyContent="center"
+            alignItems="center"
+            direction="column"
+          >
+            <IoMdCreate size="2.5rem" />
+            <Text mt={3} align="center" fontWeight={700} fontSize="1.25rem">
+              Create a HIVE community
+            </Text>
+          </OptionCard>
+          <OptionCard
+            onClick={() => {
+              setCreate(false);
+              setAsked(true);
+            }}
+            maxW="20rem"
+            height="12rem"
+            border="2px solid black"
+            borderRadius="1rem"
+            p={9}
+            justifyContent="center"
+            alignItems="center"
+            direction="column"
+          >
+            <IoMdCheckmarkCircleOutline size="2.5rem" />
+            <Text align="center" mt={3} fontWeight={700} fontSize="1.25rem">
+              Already have a HIVE community
+            </Text>
+          </OptionCard>
+        </Flex>
       )}
     </SectionWrapper>
   );
 };
+
+const OptionCard = styled(Flex)`
+  cursor: pointer;
+`;
 
 export default Setup;

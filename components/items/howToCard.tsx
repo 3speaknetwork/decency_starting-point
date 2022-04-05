@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 interface Props {
   title: string;
@@ -10,7 +10,11 @@ interface Props {
 
 export const HowToCard: React.FC<Props> = ({ title, desc, index }) => {
   return (
-    <CardWrapper>
+    <CardWrapper
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="center"
+    >
       <Text fontWeight={700} fontSize="2rem">
         {index}
       </Text>
@@ -22,8 +26,9 @@ export const HowToCard: React.FC<Props> = ({ title, desc, index }) => {
   );
 };
 
-const CardWrapper = styled.div`
+const CardWrapper = styled(Flex)`
   display: flex;
+  width: 15rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -20,27 +20,22 @@ export const Hero = () => {
             fontWeight={700}
             fontSize="2rem"
           >
-            Own your community!
+            Own Your Break Away Community!
           </Text>
           <Text maxW="40rem" margin="0 0 1rem 0" fontSize="1.5rem">
-            <strong>A web3 decentralised layer</strong>, where users and content
-            creators can <strong>own their own social networking site.</strong>
+            <b>A tokenised content community</b> connected to a Web3
+            decentralised back end infrastructure on the <b>SPK Network</b> that
+            gives full self reliance to the community.
           </Text>
           <Text maxW="40rem" margin="0 0 1rem 0" fontSize="1.5rem">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Here you can easily, and quickly create your own fully functioning
+            content platform for your community.
           </Text>
         </TextContainer>
       </HeroWrapper>
     </SectionWrapper>
   );
 };
-
-const TextComp = styled(Text)`
-  max-width: 40rem;
-`;
 
 const Img = styled.img`
   max-width: 55rem;

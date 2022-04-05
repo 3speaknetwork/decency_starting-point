@@ -1,74 +1,129 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from "react";
-import { color, Text } from "@chakra-ui/react";
-import { SectionWrapper } from "components/wrappers/sectionWrapper";
+import React, { useEffect, useMemo, useState } from "react";
+import { FaCopy } from "react-icons/fa";
+import { color, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
-import { colorState, infoState, logoState, stepState } from "state/user/slice";
-import { placeholder } from "constants/constants";
 import styled from "styled-components";
+import { SectionWrapper } from "components/wrappers/sectionWrapper";
+import { colorState, infoState, logoState } from "state/user/slice";
+import { placeholder, shcemes } from "constants/constants";
+import { ColorEdit } from "components/form/ColorInput";
+import { getCommunity } from "api";
 
 const Summary = () => {
-  const [logo, setLogo] = useRecoilState(logoState);
   const [colors, setColors] = useRecoilState(colorState);
   const [communityInfo, setInfo] = useRecoilState(infoState);
+  const logo = useRecoilState(logoState);
+  const [hiveComm, setHiveComm] = useState({
+    logo: "",
+    name: "",
+  });
 
   useEffect(() => {
-    localStorage.getItem("logo") &&
-      setLogo(JSON.parse(localStorage.getItem("logo") as string));
     localStorage.getItem("colors") &&
       setColors(JSON.parse(localStorage.getItem("colors") as string));
     localStorage.getItem("communityInfo") &&
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
   }, []);
 
-  console.log(colors);
+  useEffect(() => {
+    if (communityInfo.hive_id) {
+      (async () => {
+        const response = await getCommunity(communityInfo.hive_id);
+        if (response) {
+          const logo = `https://images.ecency.com/u/${response.name}/avatar/lardge`;
+          const { title } = response;
+          setHiveComm({
+            logo,
+            name: title,
+          });
+        }
+      })();
+    }
+  }, [communityInfo.hive_id]);
+
+  const textToCopy = `RAZZLE_HIVE_ID=${
+    communityInfo.hive_id
+  }<br/>RAZZLE_THEME=${colors}<br/>RAZZLE_RAGS=${communityInfo.tags.join(",")}`;
 
   return (
     <SectionWrapper>
       <SummaryIntro>
         <Community>
-          {logo[0] ? (
-            <Img src={logo[0]} alt="logo" width="100%" />
+          {hiveComm.logo ? (
+            <Img src={hiveComm.logo} alt="logo" width="100%" />
           ) : (
             <Img src={placeholder} alt="placeholder" width="100%" />
           )}
-          <Text fontSize="1.3rem">
-            {communityInfo.title ?? "Example title"}
-          </Text>
+          <Text fontSize="1.3rem">{hiveComm.name ?? "Example title"}</Text>
         </Community>
         <Text maxWidth="25rem" fontSize="1.5rem" fontWeight={500}>
           Welcome to your new video broadcasting website!
         </Text>
       </SummaryIntro>
       <ColorWrapper>
-        <Wrapper>
-          <Text>Primary</Text>
-          <Color color={colors.primary} />
-        </Wrapper>
-        <Wrapper>
-          <Text>Secondary</Text>
-          <Color color={colors.secondary} />
-        </Wrapper>
-        <Wrapper>
-          <Text>Accents</Text>
-          <Color color={colors.accents} />
-        </Wrapper>
+        <ColorEdit
+          title="Primary"
+          color={shcemes[colors]?.primary ?? "white"}
+        />
+        <ColorEdit
+          title="Secondary"
+          color={shcemes[colors]?.secondary ?? "white"}
+        />
+        <ColorEdit
+          title="Accents"
+          color={shcemes[colors]?.accents ?? "white"}
+        />
       </ColorWrapper>
+      <Text mt={6} maxW="sm" align="center">
+        Go to this{" "}
+        <GithubLink
+          href="https://github.com/3speaknetwork/ecency-boilerplate"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github repo
+        </GithubLink>
+        , and read the README attached! Below is your <i>.env.local</i> file
+        &#128513;
+      </Text>
+      <Flex mt={6} justifyContent="center">
+        <Text
+          backgroundColor="gray.700"
+          p={2}
+          borderLeftRadius="0.4rem"
+          color="white"
+          maxWidth="xl"
+          dangerouslySetInnerHTML={{ __html: textToCopy }}
+        />
+        <Flex
+          alignItems="center"
+          p={2}
+          onClick={() => {
+            navigator.clipboard.writeText(textToCopy);
+          }}
+          cursor="pointer"
+          borderRightRadius="0.4rem"
+          color="white"
+          backgroundColor="gray.500"
+        >
+          <Text>
+            <FaCopy />
+          </Text>
+        </Flex>
+      </Flex>
     </SectionWrapper>
   );
 };
 
-const Wrapper = styled.div`
-  width: 15rem;
-  text-align: center;
-`;
+const GithubLink = styled.a`
+  font-weight: 700;
+  text-decoration: underline;
+  transition: 0.2s all ease;
 
-const Color = styled.div<{ color: string }>`
-  margin-top: 0.5rem;
-  padding: 1rem 0;
-  border: 1px solid black;
-  border-radius: var(--chakra-radii-md);
-  background-color: ${({ color }) => color || "white"};
+  &:hover {
+    color: blue;
+  }
 `;
 
 const ColorWrapper = styled.div`

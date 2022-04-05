@@ -17,19 +17,14 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
   const [logo, setLogo] = useRecoilState(logoState);
   const [edit, setEdit] = useState(false);
 
-  const onChange = (
-    imageList: ImageListType,
-    addUpdateIndex: number[] | undefined
-  ) => {
+  console.log(logo);
+  const onChange = (imageList: ImageListType) => {
     if (imageList[0]) {
-      setLogo([imageList[0].dataURL] as never[]);
-      localStorage.setItem(
-        "logo",
-        JSON.stringify([imageList[0].dataURL] as never[])
-      );
+      setLogo(imageList[0].dataURL as string);
+      localStorage.setItem("logo", JSON.stringify(imageList[0].dataURL));
     } else {
-      localStorage.setItem("logo", JSON.stringify([]));
-      setLogo([]);
+      localStorage.setItem("logo", JSON.stringify(""));
+      setLogo("");
     }
   };
 
@@ -53,19 +48,16 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
         }) => (
           // write your building UI
           <div className="upload__image-wrapper">
-            {logo.length ? (
-              logo.map((image, index) => (
-                <PlaceHolder
-                  onMouseLeave={() => setEdit(false)}
-                  onMouseEnter={() => setEdit(true)}
-                  key={`logo_image_${index}`}
-                >
-                  {image && <img src={image} alt="" width="100%" />}
-                  {edit && (
-                    <EditForm onEdit={onImageUpdate} onDelete={onImageRemove} />
-                  )}
-                </PlaceHolder>
-              ))
+            {logo ? (
+              <PlaceHolder
+                onMouseLeave={() => setEdit(false)}
+                onMouseEnter={() => setEdit(true)}
+              >
+                {logo && <img src={logo} alt="" width="100%" />}
+                {edit && (
+                  <EditForm onEdit={onImageUpdate} onDelete={onImageRemove} />
+                )}
+              </PlaceHolder>
             ) : (
               <PlaceHolder>
                 <PrimaryButton
@@ -80,7 +72,7 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
           </div>
         )}
       </ImageUploading>
-      {logo[0] && (
+      {logo && (
         <ButtonWrapper>
           <PrimaryButton onClick={onNext}>Continue</PrimaryButton>
         </ButtonWrapper>
