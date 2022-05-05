@@ -25,7 +25,6 @@ export const CommunityConfirmation: React.FC<Props> = ({ onNext }) => {
         wif: communityInfo.wif,
       });
 
-      console.log(response);
       onNext();
     })();
   };

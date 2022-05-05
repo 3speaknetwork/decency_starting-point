@@ -17,7 +17,6 @@ export const LogoCustomize: React.FC<Props> = ({ onNext }) => {
   const [logo, setLogo] = useRecoilState(logoState);
   const [edit, setEdit] = useState(false);
 
-  console.log(logo);
   const onChange = (imageList: ImageListType) => {
     if (imageList[0]) {
       setLogo(imageList[0].dataURL as string);

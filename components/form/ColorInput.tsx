@@ -7,18 +7,14 @@ interface Props {
   color: string;
 }
 
-export const ColorEdit: React.FC<Props> = ({ title, color }) => {
-  console.log(color);
-
-  return (
+export const ColorEdit: React.FC<Props> = ({ title, color }) => (
     <div>
       <Text textAlign="center" margin="0 0 0.5rem" fontSize="1.1rem">
         {title}
       </Text>
       <ColorBox color={color} />
     </div>
-  );
-};
+);
 
 const ColorBox = styled.div<{ color: string }>`
   margin-top: 0.5rem;

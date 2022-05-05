@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCopy } from "react-icons/fa";
-import { color, Flex, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { Flex, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
@@ -9,8 +9,7 @@ import { colorState, infoState, logoState } from "state/user/slice";
 import { placeholder, shcemes, VIDEO_RESOURCES } from "constants/constants";
 import { ColorEdit } from "components/form/ColorInput";
 import { getCommunity } from "api";
-
-import tutorialVideo from '../assets/ecency_tutorial.mp4'
+import { validURL } from "utils";
 
 const Summary = () => {
   const [colors, setColors] = useRecoilState(colorState);
@@ -137,7 +136,7 @@ const Summary = () => {
                 {VIDEO_RESOURCES.map(({ for, link, videoStamp }) => (
                   <Tr>
                     <b><Td>{for}</Td></b>
-                    <Td color="blue.500"><a target="_blank" href={link}>{link}</a></Td>
+                    <Td color="blue.500">{validURL(link) ? <a target="_blank" href={link}>{link}</a> : link}</Td>
                     <Td>{videoStamp}</Td>
                   </Tr>
                 ))}
