@@ -55,3 +55,31 @@ export const SERVERS = [
   "https://rpc.ausbit.dev",
   "https://hived.emre.sh",
 ];
+
+export const VIDEO_RESOURCES = [
+  {
+    for: "Server purchase",
+    link: "https://www.privex.io/",
+    videoStamp: "00:20",
+  },
+  {
+    for: "SSH access to server",
+    link: "https://phoenixnap.com/kb/linux-ssh-commands",
+    videoStamp: "00:56",
+  },
+  {
+    for: "GIT install",
+    link: "sudo apt-get install git",
+    videoStamp: "01:00",
+  },
+  {
+    for: "DOCKER install",
+    link: "sudo apt-get install docker",
+    videoStamp: "01:00",
+  },
+  {
+    for: "DOCKER-COMPOSE install",
+    link: "https://docs.docker.com/compose/install/",
+    videoStamp: "01:00",
+  },
+];

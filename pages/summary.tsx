@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useState } from "react";
 import { FaCopy } from "react-icons/fa";
-import { color, Flex, Text } from "@chakra-ui/react";
+import { color, Flex, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { colorState, infoState, logoState } from "state/user/slice";
-import { placeholder, shcemes } from "constants/constants";
+import { placeholder, shcemes, VIDEO_RESOURCES } from "constants/constants";
 import { ColorEdit } from "components/form/ColorInput";
 import { getCommunity } from "api";
+
+import tutorialVideo from '../assets/ecency_tutorial.mp4'
 
 const Summary = () => {
   const [colors, setColors] = useRecoilState(colorState);
@@ -42,9 +44,13 @@ const Summary = () => {
     }
   }, [communityInfo.hive_id]);
 
-  const textToCopy = `RAZZLE_HIVE_ID=${
-    communityInfo.hive_id
-  }<br/>RAZZLE_THEME=${colors}<br/>RAZZLE_RAGS=${communityInfo.tags.join(",")}`;
+  const textToCopy = {
+    view: `HIVE_ID=${communityInfo.hive_id || 'hive-112019'
+      }<br/>THEME=${colors}<br/>RAGS=${communityInfo.tags.join(
+        ","
+      ) || "spk,3speak"}`,
+    copy: `HIVE_ID=${communityInfo.hive_id}THEME=${colors}TAGS=${communityInfo.tags}`,
+  };
 
   return (
     <SectionWrapper>
@@ -94,13 +100,13 @@ const Summary = () => {
           borderLeftRadius="0.4rem"
           color="white"
           maxWidth="xl"
-          dangerouslySetInnerHTML={{ __html: textToCopy }}
+          dangerouslySetInnerHTML={{ __html: textToCopy.view }}
         />
         <Flex
           alignItems="center"
           p={2}
           onClick={() => {
-            navigator.clipboard.writeText(textToCopy);
+            navigator.clipboard.writeText(textToCopy.copy);
           }}
           cursor="pointer"
           borderRightRadius="0.4rem"
@@ -112,9 +118,50 @@ const Summary = () => {
           </Text>
         </Flex>
       </Flex>
+      <Flex maxWidth="70rem" width="100%" flexDirection="column">
+        <StyledVideo controls>
+          <source src="/ecency_tutorial.mp4" type="video/mp4" />
+        </StyledVideo>
+        <Flex flexDir="column">
+          <Text fontSize="2rem" fontWeight={700} textAlign="left">Resources used: </Text>
+          <TableContainer>
+            <Table mt="1rem" mb="5rem" variant='simple'>
+              <Thead>
+                <Tr>
+                  <Th>For</Th>
+                  <Th>Link/COMMAND</Th>
+                  <Th>Video timestamp</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {VIDEO_RESOURCES.map(({ for, link, videoStamp }) => (
+                  <Tr>
+                    <b><Td>{for}</Td></b>
+                    <Td color="blue.500"><a target="_blank" href={link}>{link}</a></Td>
+                    <Td>{videoStamp}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+              <Tfoot>
+                <Tr>
+                  <Th>For</Th>
+                  <Th>Link/COMMAND</Th>
+                  <Th>Video timestamp</Th>
+                </Tr>
+              </Tfoot>
+            </Table>
+          </TableContainer>
+        </Flex>
+      </Flex>
     </SectionWrapper>
   );
 };
+
+const StyledVideo = styled.video`
+  width: 100%;
+  border-radius: 1rem;
+  margin: 1rem auto;
+`
 
 const GithubLink = styled.a`
   font-weight: 700;
