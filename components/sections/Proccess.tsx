@@ -9,12 +9,14 @@ import { CommunityCreate } from "./customize/communityCreate";
 import { useRecoilState } from "recoil";
 import { stepState } from "state/user/slice";
 import { CommunityConfirmation } from "./communityConfirmation";
+import CommunityCount from "./customize/communityCount";
 
 enum Steps {
   Logo = "Logo",
   Color = "Color scheme",
   Community = "Community info",
   Conrifmation = "Confirmation",
+  Count = "Count",
 }
 
 interface Props {
@@ -25,8 +27,14 @@ interface Props {
 export const Proccess: React.FC<Props> = ({ create, onExit }) => {
   const [step, setStep] = useRecoilState(stepState);
   const steps = create
-    ? [Steps.Community, Steps.Conrifmation, Steps.Logo, Steps.Color]
-    : [Steps.Logo, Steps.Color, Steps.Community];
+    ? [
+        Steps.Community,
+        Steps.Conrifmation,
+        Steps.Logo,
+        Steps.Color,
+        Steps.Count,
+      ]
+    : [Steps.Logo, Steps.Color, Steps.Community, Steps.Count];
   const router = useRouter();
 
   const handleBack = () => {
@@ -46,20 +54,19 @@ export const Proccess: React.FC<Props> = ({ create, onExit }) => {
           <LogoCustomize onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Color && (
-          <ColorScheme
-            onNext={() =>
-              create ? router.push("/summary") : setStep(step + 1)
-            }
-          />
+          <ColorScheme onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Community && !create && (
-          <CommunityCustomize onNext={() => router.push("/summary")} />
+          <CommunityCustomize onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Community && create && (
           <CommunityCreate onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Conrifmation && (
           <CommunityConfirmation onNext={() => setStep(step + 1)} />
+        )}
+        {steps[step] === Steps.Count && (
+          <CommunityCount onNext={() => router.push("/summary")} />
         )}
       </Box>
     </>
