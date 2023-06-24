@@ -16,7 +16,7 @@ export const CommunityConfirmation: React.FC<Props> = ({ onNext }) => {
 
   const handleCreateCommunity = () => {
     (async () => {
-      const response = await createCommunity({
+      const response: any = await createCommunity({
         username: user.name,
         aboutCommunity: communityInfo.about,
         communityName: communityInfo.title,
@@ -25,7 +25,9 @@ export const CommunityConfirmation: React.FC<Props> = ({ onNext }) => {
         wif: communityInfo.wif,
       });
 
-      onNext();
+      if (!response.error) {
+        onNext();
+      }
     })();
   };
 
