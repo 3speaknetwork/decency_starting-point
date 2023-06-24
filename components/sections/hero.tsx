@@ -10,7 +10,7 @@ export const Hero = () => {
   return (
     <SectionWrapper>
       <HeroWrapper>
-        <Box maxWidth="40rem" width="100%">
+        <Box maxWidth="38rem" width="100%">
           <Img src={HeroImage.src} alt="hero" width="100%" />
         </Box>
         <TextContainer>
@@ -20,7 +20,7 @@ export const Hero = () => {
             fontWeight={700}
             fontSize="2rem"
           >
-            Own Your Break Away Community!
+            Create a &quot;Break Away Community&quot;!
           </Text>
           <Text maxW="40rem" margin="0 0 1rem 0" fontSize="1.5rem">
             <b>A tokenised content community</b> connected to a Web3
@@ -28,7 +28,7 @@ export const Hero = () => {
             gives full self reliance to the community.
           </Text>
           <Text maxW="40rem" margin="0 0 1rem 0" fontSize="1.5rem">
-            Here you can easily, and quickly create your own fully functioning
+            Here, you can easily and quickly create your own fully functioning
             content platform for your community.
           </Text>
         </TextContainer>
@@ -49,5 +49,5 @@ const HeroWrapper = styled.div`
 `;
 
 const TextContainer = styled.div`
-  max-width: 40rem;
+  max-width: 50rem;
 `;
