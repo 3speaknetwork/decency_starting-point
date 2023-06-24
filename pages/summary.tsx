@@ -122,9 +122,11 @@ const Summary = () => {
           <source src="/ecency_tutorial.mp4" type="video/mp4" />
         </StyledVideo>
         <Flex flexDir="column">
-          <Text fontSize="2rem" fontWeight={700} textAlign="left">Resources used: </Text>
+          <Text fontSize="2rem" fontWeight={700} textAlign="left">
+            Resources used:{" "}
+          </Text>
           <TableContainer>
-            <Table mt="1rem" mb="5rem" variant='simple'>
+            <Table mt="1rem" mb="5rem" variant="simple">
               <Thead>
                 <Tr>
                   <Th>For</Th>
@@ -133,10 +135,20 @@ const Summary = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {VIDEO_RESOURCES.map(({ for, link, videoStamp }) => (
-                  <Tr>
-                    <b><Td>{for}</Td></b>
-                    <Td color="blue.500">{validURL(link) ? <a target="_blank" href={link}>{link}</a> : link}</Td>
+                {VIDEO_RESOURCES.map(({ reason, link, videoStamp }) => (
+                  <Tr key={reason}>
+                    <b>
+                      <Td>{reason}</Td>
+                    </b>
+                    <Td color="blue.500">
+                      {validURL(link) ? (
+                        <a target="_blank" href={link} rel="noreferrer">
+                          {link}
+                        </a>
+                      ) : (
+                        link
+                      )}
+                    </Td>
                     <Td>{videoStamp}</Td>
                   </Tr>
                 ))}

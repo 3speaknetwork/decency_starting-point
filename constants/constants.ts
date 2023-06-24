@@ -1,23 +1,23 @@
 export const STEPS = [
   {
     title: "Community",
-    desc: "Create a Hive community (if you don't already have one)",
+    desc: "Create a Hive community",
   },
   {
     title: "Logos",
-    desc: "Upload an ICO (icon/ image/ logo)  file for the community metadata tags",
+    desc: "Upload an ICO file for your logo",
   },
   {
-    title: "Colours",
+    title: "Colors",
     desc: "Selected a preferred colour scheme",
   },
   {
-    title: "Community Details",
-    desc: "Enter basic info and details about the community you created (or already had)",
+    title: "Details",
+    desc: "Enter basic details about the community",
   },
   {
     title: "Enjoy!",
-    desc: "Run our docker image from your server and point it to your URL and you have your own social media site!",
+    desc: "We'll take the rest from there!",
   },
 ];
 
@@ -58,27 +58,27 @@ export const SERVERS = [
 
 export const VIDEO_RESOURCES = [
   {
-    for: "Server purchase",
+    reason: "Server purchase",
     link: "https://www.privex.io/",
     videoStamp: "00:20",
   },
   {
-    for: "SSH access to server",
+    reason: "SSH access to server",
     link: "https://phoenixnap.com/kb/linux-ssh-commands",
     videoStamp: "00:56",
   },
   {
-    for: "GIT install",
+    reason: "GIT install",
     link: "sudo apt-get install git",
     videoStamp: "01:00",
   },
   {
-    for: "DOCKER install",
+    reason: "DOCKER install",
     link: "sudo apt-get install docker",
     videoStamp: "01:00",
   },
   {
-    for: "DOCKER-COMPOSE install",
+    reason: "DOCKER-COMPOSE install",
     link: "https://docs.docker.com/compose/install/",
     videoStamp: "01:00",
   },
