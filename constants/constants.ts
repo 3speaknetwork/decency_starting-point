@@ -9,7 +9,7 @@ export const STEPS = [
   },
   {
     title: "Colors",
-    desc: "Selected a preferred colour scheme",
+    desc: "Selected a preferred color scheme",
   },
   {
     title: "Details",
