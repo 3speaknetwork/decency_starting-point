@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Router from "next/router";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { IoMdCreate, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { colorState, infoState, logoState, userState } from "state/user/slice";
 import { Proccess } from "components/sections/Proccess";
@@ -11,7 +11,7 @@ import { SectionWrapper } from "components/wrappers/sectionWrapper";
 const Setup = () => {
   const [asked, setAsked] = useState(false);
   const [create, setCreate] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
   const [_logo, setLogo] = useRecoilState(logoState);
   const [_colors, setColors] = useRecoilState(colorState);
   const [_info, setInfo] = useRecoilState(infoState);
