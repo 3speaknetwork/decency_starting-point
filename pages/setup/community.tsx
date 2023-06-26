@@ -5,7 +5,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { IoMdCreate, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { colorState, infoState, logoState, userState } from "state/user/slice";
-import { Proccess } from "components/sections/Proccess";
+import { Proccess } from "components/sections/Questions/CommunityProccess";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 
 const Setup = () => {

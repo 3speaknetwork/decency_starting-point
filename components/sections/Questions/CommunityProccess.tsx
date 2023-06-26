@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ProgressBar } from "components/items/ProgressBar";
-import { ColorScheme } from "./customize/colorScheme";
-import { CommunityCustomize } from "./customize/communityCustomize";
-import { LogoCustomize } from "./customize/logoCustomize";
-import { CommunityCreate } from "./customize/communityCreate";
+import { ColorScheme } from "../customize/colorScheme";
+import { CommunityCustomize } from "../customize/communityCustomize";
+import { LogoCustomize } from "../customize/logoCustomize";
+import { CommunityCreate } from "../customize/communityCreate";
 import { useRecoilState } from "recoil";
 import { stepState } from "state/user/slice";
-import { CommunityConfirmation } from "./communityConfirmation";
-import CommunityCount from "./customize/communityCount";
+import { CommunityConfirmation } from "../communityConfirmation";
+import CommunityCount from "../customize/communityCount";
 
 enum Steps {
   Logo = "Logo",
