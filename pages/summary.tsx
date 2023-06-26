@@ -5,7 +5,7 @@ import { Flex, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } fr
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { colorState, infoState, logoState } from "state/user/slice";
+import { colorState, infoState, logoState } from "state/slices";
 import { placeholder, shcemes, VIDEO_RESOURCES } from "constants/constants";
 import { ColorEdit } from "components/form/ColorInput";
 import { getCommunity } from "api";

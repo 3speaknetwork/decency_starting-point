@@ -7,9 +7,9 @@ import { CommunityCustomize } from "../customize/communityCustomize";
 import { LogoCustomize } from "../customize/logoCustomize";
 import { CommunityCreate } from "../customize/communityCreate";
 import { useRecoilState } from "recoil";
-import { stepState } from "state/user/slice";
+import { stepState } from "state/slices";
 import { CommunityConfirmation } from "../communityConfirmation";
-import CommunityCount from "../customize/communityCount";
+import CommunityCount from "../customize/count";
 
 enum Steps {
   Logo = "Logo",

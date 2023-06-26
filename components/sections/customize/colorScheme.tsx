@@ -5,7 +5,7 @@ import { color, Select, Text } from "@chakra-ui/react";
 import { PrimaryButton } from "components/items/primaryButton";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { ColorEdit } from "components/form/ColorInput";
-import { colorState } from "state/user/slice";
+import { colorState } from "state/slices";
 import { ColorSchemes, shcemes } from "constants/constants";
 
 export enum ColorType {

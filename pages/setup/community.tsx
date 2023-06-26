@@ -4,7 +4,7 @@ import Router from "next/router";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { IoMdCreate, IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { colorState, infoState, logoState, userState } from "state/user/slice";
+import { colorState, infoState, logoState, userState } from "state/slices";
 import { Proccess } from "components/sections/Questions/CommunityProccess";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { communityCreationState, userState } from "state/user/slice";
+import { communityCreationState, userState } from "state/slices";
 import { PrimaryButton } from "components/items/primaryButton";
 import { createCommunity } from "api";
 

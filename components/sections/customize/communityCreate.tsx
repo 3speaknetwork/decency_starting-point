@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { Formik } from "formik";
 import { Flex } from "@chakra-ui/react";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { communityCreationState } from "state/user/slice";
+import { communityCreationState } from "state/slices";
 import { CommunityInput } from "components/form/CommunityInput";
 import { PrimaryButton } from "components/items/primaryButton";
 import { getCommunityCreationInfo } from "api";

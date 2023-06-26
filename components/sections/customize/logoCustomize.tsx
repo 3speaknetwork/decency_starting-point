@@ -5,7 +5,7 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { EditForm } from "components/form/LogoEditForm";
 import { useRecoilState } from "recoil";
-import { logoState } from "state/user/slice";
+import { logoState } from "state/slices";
 import { PrimaryButton } from "components/items/primaryButton";
 import styled from "styled-components";
 

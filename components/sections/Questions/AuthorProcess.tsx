@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { ProgressBar } from "components/items/ProgressBar";
 import { ColorScheme } from "../customize/colorScheme";
 import { useRecoilState } from "recoil";
-import { stepState } from "state/user/slice";
+import { stepState } from "state/slices";
 import { CommunityConfirmation } from "../communityConfirmation";
-import CommunityCount from "../customize/communityCount";
+import CommunityCount from "../customize/count";
 import AuthorDetails from "../customize/authorDetails";
 
 enum Steps {

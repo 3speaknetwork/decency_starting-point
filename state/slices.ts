@@ -42,3 +42,11 @@ export const infoState = atom<{
     tags: [],
   },
 });
+
+export const countState = atom<{ count: number; names: string[] }>({
+  key: 'count_state',
+  default: {
+    count: 0,
+    names: ['']
+  }
+})

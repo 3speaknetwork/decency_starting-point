@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { CommunityInput } from "components/form/CommunityInput";
 import { PrimaryButton } from "components/items/primaryButton";
-import { infoState, userState } from "state/user/slice";
+import { infoState, userState } from "state/slices";
 import { getCommunity } from "api";
 
 interface Props {

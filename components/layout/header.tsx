@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { ModalWrapper } from "components/wrappers/modalWrapper";
 import { useRecoilState } from "recoil";
-import { userState } from "state/user/slice";
+import { userState } from "state/slices";
 import { login } from "utils";
 
 export const Header = () => {
