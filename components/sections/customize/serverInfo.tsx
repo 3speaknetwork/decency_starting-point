@@ -31,6 +31,11 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
         >
           privex
         </PrivexLink>
+        .{" "}
+        <Red>
+          Make sure that the server has an IPv4 address. (We suggest using the
+          Privex "WebBox")
+        </Red>
         <br />
         <br />
         By using this platform, you give us permission to connect to your given
@@ -116,6 +121,10 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
     </SectionWrapper>
   );
 };
+
+const Red = styled.span`
+  color: red;
+`;
 
 const PrivexLink = styled.a`
   color: blue;
