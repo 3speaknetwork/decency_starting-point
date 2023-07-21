@@ -1,30 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import { FaCopy } from "react-icons/fa";
-import { Flex, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { colorState, infoState, logoState } from "state/slices";
-import { placeholder, shcemes, VIDEO_RESOURCES } from "constants/constants";
-import { ColorEdit } from "components/form/ColorInput";
+import { communityInfoState, serverInfoState } from "state/slices";
 import { getCommunity } from "api";
-import { validURL } from "utils";
+import { communityCreate } from "helpers/endpoints";
+import axios from "axios";
 
 const Summary = () => {
-  const [colors, setColors] = useRecoilState(colorState);
-  const [communityInfo, setInfo] = useRecoilState(infoState);
-  const logo = useRecoilState(logoState);
+  const [communityInfo, setInfo] = useRecoilState(communityInfoState);
+  const [serverInfo, setServerInfo] = useRecoilState(serverInfoState);
   const [hiveComm, setHiveComm] = useState({
     logo: "",
     name: "",
   });
 
   useEffect(() => {
-    localStorage.getItem("colors") &&
-      setColors(JSON.parse(localStorage.getItem("colors") as string));
     localStorage.getItem("communityInfo") &&
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
+
+    localStorage.getItem("serverInfo") &&
+      setServerInfo(JSON.parse(localStorage.getItem("serverInfo") as string));
   }, []);
 
   useEffect(() => {
@@ -43,138 +41,51 @@ const Summary = () => {
     }
   }, [communityInfo.hive_id]);
 
-  const textToCopy = {
-    view: `HIVE_ID=${communityInfo.hive_id || 'hive-112019'
-      }<br/>THEME=${colors}<br/>RAGS=${communityInfo.tags.join(
-        ","
-      ) || "spk,3speak"}`,
-    copy: `HIVE_ID=${communityInfo.hive_id}THEME=${colors}TAGS=${communityInfo.tags}`,
-  };
+  useEffect(() => {
+    if (communityInfo.hive_id && serverInfo.ip) {
+      const { hive_id, tags } = communityInfo;
+      const { ip, username, password } = serverInfo;
+
+      axios
+        .post(communityCreate(), {
+          hive_id,
+          tags: tags.join(","),
+          server_ip: ip,
+          server_username: username,
+          server_password: password,
+        })
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((e) => console.error(e));
+    }
+  }, [communityInfo, serverInfo]);
 
   return (
     <SectionWrapper>
       <SummaryIntro>
         <Community>
-          {hiveComm.logo ? (
-            <Img src={hiveComm.logo} alt="logo" width="100%" />
-          ) : (
-            <Img src={placeholder} alt="placeholder" width="100%" />
-          )}
+          <Img src={hiveComm.logo} alt="logo" width="100%" />
           <Text fontSize="1.3rem">{hiveComm.name ?? "Example title"}</Text>
         </Community>
         <Text maxWidth="25rem" fontSize="1.5rem" fontWeight={500}>
           Welcome to your new video broadcasting website!
         </Text>
       </SummaryIntro>
-      <ColorWrapper>
-        <ColorEdit
-          title="Primary"
-          color={shcemes[colors]?.primary ?? "white"}
-        />
-        <ColorEdit
-          title="Secondary"
-          color={shcemes[colors]?.secondary ?? "white"}
-        />
-        <ColorEdit
-          title="Accents"
-          color={shcemes[colors]?.accents ?? "white"}
-        />
-      </ColorWrapper>
-      <Text mt={6} maxW="sm" align="center">
-        Go to this{" "}
-        <GithubLink
-          href="https://github.com/3speaknetwork/ecency-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Github repo
-        </GithubLink>
-        , and read the README attached! Below is your <i>.env.local</i> file
-        &#128513;
+      <Text mt={6} maxW="lg" align="center">
+        Now the only thing left to do is to get your very own domain, we suggest
+        using{" "}
+        <Link target="_blank" href="https://godaddy.com" rel="noreferrer">
+          goDaddy
+        </Link>{" "}
+        and point it to your servers IPv4 address. Which in this case would be:{" "}
+        {serverInfo.ip}
       </Text>
-      <Flex mt={6} justifyContent="center">
-        <Text
-          backgroundColor="gray.700"
-          p={2}
-          borderLeftRadius="0.4rem"
-          color="white"
-          maxWidth="xl"
-          dangerouslySetInnerHTML={{ __html: textToCopy.view }}
-        />
-        <Flex
-          alignItems="center"
-          p={2}
-          onClick={() => {
-            navigator.clipboard.writeText(textToCopy.copy);
-          }}
-          cursor="pointer"
-          borderRightRadius="0.4rem"
-          color="white"
-          backgroundColor="gray.500"
-        >
-          <Text>
-            <FaCopy />
-          </Text>
-        </Flex>
-      </Flex>
-      <Flex maxWidth="70rem" width="100%" flexDirection="column">
-        <StyledVideo controls>
-          <source src="/ecency_tutorial.mp4" type="video/mp4" />
-        </StyledVideo>
-        <Flex flexDir="column">
-          <Text fontSize="2rem" fontWeight={700} textAlign="left">
-            Resources used:{" "}
-          </Text>
-          <TableContainer>
-            <Table mt="1rem" mb="5rem" variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>For</Th>
-                  <Th>Link/COMMAND</Th>
-                  <Th>Video timestamp</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {VIDEO_RESOURCES.map(({ reason, link, videoStamp }) => (
-                  <Tr key={reason}>
-                    <b>
-                      <Td>{reason}</Td>
-                    </b>
-                    <Td color="blue.500">
-                      {validURL(link) ? (
-                        <a target="_blank" href={link} rel="noreferrer">
-                          {link}
-                        </a>
-                      ) : (
-                        link
-                      )}
-                    </Td>
-                    <Td>{videoStamp}</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-              <Tfoot>
-                <Tr>
-                  <Th>For</Th>
-                  <Th>Link/COMMAND</Th>
-                  <Th>Video timestamp</Th>
-                </Tr>
-              </Tfoot>
-            </Table>
-          </TableContainer>
-        </Flex>
-      </Flex>
     </SectionWrapper>
   );
 };
 
-const StyledVideo = styled.video`
-  width: 100%;
-  border-radius: 1rem;
-  margin: 1rem auto;
-`
-
-const GithubLink = styled.a`
+const Link = styled.a`
   font-weight: 700;
   text-decoration: underline;
   transition: 0.2s all ease;
@@ -182,15 +93,6 @@ const GithubLink = styled.a`
   &:hover {
     color: blue;
   }
-`;
-
-const ColorWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  gap: 3rem;
-  margin: 2rem auto 0;
 `;
 
 const Community = styled.div`

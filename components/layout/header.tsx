@@ -9,12 +9,14 @@ import { ModalWrapper } from "components/wrappers/modalWrapper";
 import { useRecoilState } from "recoil";
 import { userState } from "state/slices";
 import { login } from "utils";
+import { useRouter } from "next/router";
 
 export const Header = () => {
   const [openLogin, setOpenLogin] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [user, setUser] = useRecoilState(userState);
   const [username, setUsername] = useState("");
+  const { pathname } = useRouter();
 
   useEffect(() => {
     const userStor = window.localStorage.getItem("user");
@@ -47,14 +49,16 @@ export const Header = () => {
     <ContentWrapper>
       <HeaderWrapper>
         <Flex width="15rem" justifyContent="flex-start">
-          <ul>
-            <Link passHref={true} href="/setup">
-              <li>Setup</li>
-            </Link>
-            <a href="#how-to">
-              <li>How to</li>
-            </a>
-          </ul>
+          {pathname === "/" && (
+            <ul>
+              <Link passHref={true} href="/setup/community">
+                <li>Setup</li>
+              </Link>
+              <a href="#how-to">
+                <li>How to</li>
+              </a>
+            </ul>
+          )}
         </Flex>
         <Link passHref={true} href="/">
           <Logo src="/logo.svg" alt="logo" width={85} height={85} />

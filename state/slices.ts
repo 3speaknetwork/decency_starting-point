@@ -1,5 +1,6 @@
 import { ColorSchemes } from "constants/constants";
 import { atom } from "recoil";
+import { CommunityInfo, ServerInfo } from "./types";
 
 export const userState = atom<any>({
   key: "user_state",
@@ -22,20 +23,7 @@ export const stepState = atom<number>({
   default: 0,
 });
 
-export const logoState = atom<string>({
-  key: "logo_state",
-  default: "",
-});
-
-export const colorState = atom<"sky_blue" | "dusk_yellow" | "burning_red">({
-  key: "colors_state",
-  default: "sky_blue",
-});
-
-export const infoState = atom<{
-  hive_id: string;
-  tags: string[];
-}>({
+export const communityInfoState = atom<CommunityInfo>({
   key: "info_state",
   default: {
     hive_id: "",
@@ -43,10 +31,11 @@ export const infoState = atom<{
   },
 });
 
-export const countState = atom<{ count: number; names: string[] }>({
-  key: 'count_state',
+export const serverInfoState = atom<ServerInfo>({
+  key: 'server_state',
   default: {
-    count: 0,
-    names: ['']
+    password: '',
+    ip: '',
+    username: 'root',
   }
 })

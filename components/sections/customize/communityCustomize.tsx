@@ -7,15 +7,16 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 import { CommunityInput } from "components/form/CommunityInput";
 import { PrimaryButton } from "components/items/primaryButton";
-import { infoState, userState } from "state/slices";
+import { userState, communityInfoState } from "state/slices";
 import { getCommunity } from "api";
+import { Errors } from "helpers/errors";
 
 interface Props {
   onNext: () => void;
 }
 
 export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
-  const [info, setInfo] = useRecoilState(infoState);
+  const [info, setInfo] = useRecoilState(communityInfoState);
   const [showCommunity, setShowCommunity] = useState<{
     title: string;
     logo: string;
@@ -27,7 +28,7 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
     if (info.hive_id) {
       (async () => {
         const response = await getCommunity(info.hive_id);
-        if (response && user && response.team[1][0] === user.name) {
+        if (response) {
           const logo = `https://images.ecency.com/u/${response.name}/avatar/lardge`;
           const { title, about } = response;
           setShowCommunity({
@@ -51,15 +52,15 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
           const errors: any = {};
 
           if (hive_id === "") {
-            errors.hive_id = "Required!";
+            errors.hive_id = Errors.REQ;
           } else if (tags === "") {
-            errors.tags = "Required!";
+            errors.tags = Errors.REQ;
           } else {
-            const response: any = await getCommunity(hive_id);
-            if (response && response.team[1][0] !== user.name) {
-              setShowCommunity(null);
-              errors.hive_id = `The owner of this community is ${response.team[1][0]}`;
-            }
+            // const response: any = await getCommunity(hive_id);
+            // if (response && response.team[1][0] !== user.name) {
+            //   setShowCommunity(null);
+            //   errors.hive_id = `The owner of this community is ${response.team[1][0]}`;
+            // }
           }
 
           return errors;
