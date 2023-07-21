@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ProgressBar } from "components/items/ProgressBar";
-import { ColorScheme } from "./customize/colorScheme";
-import { CommunityCustomize } from "./customize/communityCustomize";
-import { LogoCustomize } from "./customize/logoCustomize";
-import { CommunityCreate } from "./customize/communityCreate";
+import { CommunityCustomize } from "../customize/communityCustomize";
+import { CommunityCreate } from "../customize/communityCreate";
 import { useRecoilState } from "recoil";
-import { stepState } from "state/user/slice";
-import { CommunityConfirmation } from "./communityConfirmation";
+import { stepState } from "state/slices";
+import { CommunityConfirmation } from "../communityConfirmation";
+import ServerInfo from "../customize/serverInfo";
 
 enum Steps {
-  Logo = "Logo",
-  Color = "Color scheme",
   Community = "Community info",
   Conrifmation = "Confirmation",
+  ServerInfo = "Server info",
 }
 
 interface Props {
@@ -25,8 +23,8 @@ interface Props {
 export const Proccess: React.FC<Props> = ({ create, onExit }) => {
   const [step, setStep] = useRecoilState(stepState);
   const steps = create
-    ? [Steps.Community, Steps.Conrifmation, Steps.Logo, Steps.Color]
-    : [Steps.Logo, Steps.Color, Steps.Community];
+    ? [Steps.Community, Steps.Conrifmation, Steps.ServerInfo]
+    : [Steps.Community, Steps.ServerInfo];
   const router = useRouter();
 
   const handleBack = () => {
@@ -42,24 +40,17 @@ export const Proccess: React.FC<Props> = ({ create, onExit }) => {
     <>
       <ProgressBar onBack={handleBack} currentIndex={step} steps={steps} />
       <Box>
-        {steps[step] === Steps.Logo && (
-          <LogoCustomize onNext={() => setStep(step + 1)} />
-        )}
-        {steps[step] === Steps.Color && (
-          <ColorScheme
-            onNext={() =>
-              create ? router.push("/summary") : setStep(step + 1)
-            }
-          />
-        )}
         {steps[step] === Steps.Community && !create && (
-          <CommunityCustomize onNext={() => router.push("/summary")} />
+          <CommunityCustomize onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Community && create && (
           <CommunityCreate onNext={() => setStep(step + 1)} />
         )}
         {steps[step] === Steps.Conrifmation && (
           <CommunityConfirmation onNext={() => setStep(step + 1)} />
+        )}
+        {steps[step] === Steps.ServerInfo && (
+          <ServerInfo onNext={() => router.push("/summary")} />
         )}
       </Box>
     </>

@@ -1,30 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Router from "next/router";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
+import { Flex, Text } from "@chakra-ui/react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { IoMdCreate, IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { colorState, infoState, logoState, userState } from "state/user/slice";
-import { Proccess } from "components/sections/Proccess";
+import { communityInfoState, userState } from "state/slices";
+import { Proccess } from "components/sections/Questions/CommunityProccess";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
 
 const Setup = () => {
   const [asked, setAsked] = useState(false);
   const [create, setCreate] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
-  const [_logo, setLogo] = useRecoilState(logoState);
-  const [_colors, setColors] = useRecoilState(colorState);
-  const [_info, setInfo] = useRecoilState(infoState);
+  const user = useRecoilValue(userState);
+  const [_info, setInfo] = useRecoilState(communityInfoState);
 
   useEffect(() => {
     if (!user) {
       Router.push("/");
     }
-
-    localStorage.getItem("logo") &&
-      setLogo(JSON.parse(localStorage.getItem("logo") as string));
-    localStorage.getItem("colors") &&
-      setColors(JSON.parse(localStorage.getItem("colors") as string));
     localStorage.getItem("communityInfo") &&
       setInfo(JSON.parse(localStorage.getItem("communityInfo") as string));
   }, []);
