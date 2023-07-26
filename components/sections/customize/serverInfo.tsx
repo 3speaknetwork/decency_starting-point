@@ -34,7 +34,7 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
         .{" "}
         <Red>
           Make sure that the server has an IPv4 address. (We suggest using the
-          Privex "WebBox")
+          Privex &quot;WebBox&quot;)
         </Red>
         <br />
         <br />
