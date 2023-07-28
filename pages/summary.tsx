@@ -44,7 +44,7 @@ const Summary = () => {
   useEffect(() => {
     if (communityInfo.hive_id && serverInfo.ip) {
       const { hive_id, tags } = communityInfo;
-      const { ip, username, password } = serverInfo;
+      const { ip, username, password, link } = serverInfo;
 
       axios
         .post(communityCreate(), {
@@ -53,6 +53,7 @@ const Summary = () => {
           server_ip: ip,
           server_username: username,
           server_password: password,
+          server_links: link,
         })
         .then(({ data }) => {
           console.log(data);
@@ -80,6 +81,10 @@ const Summary = () => {
         </Link>{" "}
         and point it to your servers IPv4 address. Which in this case would be:{" "}
         {serverInfo.ip}
+        <br />
+        <br />
+        The site domain needs to correspond to the one you inputted into the
+        form ({serverInfo.link})
       </Text>
     </SectionWrapper>
   );

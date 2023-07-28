@@ -49,14 +49,19 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
         >
           Github repo
         </PrivexLink>
+        <br />
+        <Red>
+          THE LINK YOU INPUT NEEDS TO BE POINTED TOWARDS THE SERVER IP!!
+        </Red>
       </Text>
       <Formik
         initialValues={{
           password: info.password,
           ip: info.ip,
           username: info.username,
+          link: info.link,
         }}
-        validate={async ({ password, ip, username }) => {
+        validate={async ({ password, ip, username, link }) => {
           const errors: any = {};
           const regexExp =
             /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
@@ -69,6 +74,8 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
             errors.username = Errors.REQ;
           } else if (!regexExp.test(ip)) {
             errors.ip = Errors.IP_INVALID;
+          } else if (!link) {
+            errors.link = Errors.REQ;
           }
 
           return errors;
@@ -93,7 +100,7 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
                 placeHolder="127.0.0.1"
               />
               <CommunityInput
-                title="root username"
+                title="Root username"
                 error={errors.username ?? ""}
                 isInvalid={!!errors.username}
                 onBlur={handleBlur}
@@ -103,7 +110,7 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
                 placeHolder="root"
               />
               <CommunityInput
-                title="root password"
+                title="Root password"
                 error={errors.password ?? ""}
                 isInvalid={!!errors.password}
                 onBlur={handleBlur}
@@ -112,6 +119,16 @@ const ServerInformation: FC<Props> = ({ onNext }) => {
                 name="password"
                 placeHolder=""
                 type="password"
+              />
+              <CommunityInput
+                title="Server link"
+                error={errors.link ?? ""}
+                isInvalid={!!errors.link}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.link}
+                name="link"
+                placeHolder="www.example.com"
               />
             </CustomizeWrapper>
             <PrimaryButton onClick={handleSubmit}>Continue</PrimaryButton>

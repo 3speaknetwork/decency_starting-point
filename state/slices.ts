@@ -37,5 +37,6 @@ export const serverInfoState = atom<ServerInfo>({
     password: '',
     ip: '',
     username: 'root',
+    link: ''
   }
 })

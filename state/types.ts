@@ -6,5 +6,6 @@ export interface CommunityInfo {
 export interface ServerInfo {
   password: string;
   ip: string;
+  link: string;
   username: string;
 }
