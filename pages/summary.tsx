@@ -9,9 +9,19 @@ import { getCommunity } from "api";
 import { communityCreate } from "helpers/endpoints";
 import axios from "axios";
 
+const getErrorTitle = {
+  NO_SERVER: "The server you inputed couldn't be connected to",
+  WRONG_PAYLOAD: "Something went wrong with sending out your given data",
+  NO_ROOT_ACCESS: "You don't have access to the given server",
+  NO_CLI: "Couldn't run the community create CLI",
+  NO_CERTIFICATION:
+    "The UI is setup, but it will run using the http protocol, because we couldn't setup the certification",
+};
+
 const Summary = () => {
   const [communityInfo, setInfo] = useRecoilState(communityInfoState);
   const [serverInfo, setServerInfo] = useRecoilState(serverInfoState);
+  const [error, setError] = useState("");
   const [hiveComm, setHiveComm] = useState({
     logo: "",
     name: "",
@@ -58,7 +68,7 @@ const Summary = () => {
         .then(({ data }) => {
           console.log(data);
         })
-        .catch((e) => console.error(e));
+        .catch((e) => setError(e.response.data.error));
     }
   }, [communityInfo, serverInfo]);
 
@@ -86,9 +96,37 @@ const Summary = () => {
         The site domain needs to correspond to the one you inputted into the
         form ({serverInfo.link})
       </Text>
+      {error && (
+        <ErrorContainer>
+          {getErrorTitle[error as keyof typeof getErrorTitle]}, please try again
+          or contact us on discord:{" "}
+          <a>Click here to join the SPK discord server</a>
+        </ErrorContainer>
+      )}
     </SectionWrapper>
   );
 };
+
+const ErrorContainer = styled.div`
+  text-align: center;
+  border: 2px solid red;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  color: red;
+  font-size: 16px;
+  font-weight: 500;
+  max-width: 50%;
+
+  a {
+    color: blue;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
 
 const Link = styled.a`
   font-weight: 700;
