@@ -100,7 +100,13 @@ const Summary = () => {
         <ErrorContainer>
           {getErrorTitle[error as keyof typeof getErrorTitle]}, please try again
           or contact us on discord:{" "}
-          <a>Click here to join the SPK discord server</a>
+          <a
+            href="https://discord.gg/JbhQ7dREsP"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Click here to join the SPK discord server
+          </a>
         </ErrorContainer>
       )}
     </SectionWrapper>
