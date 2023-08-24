@@ -95,6 +95,7 @@ const Summary = () => {
         <br />
         The site domain needs to correspond to the one you inputted into the
         form ({serverInfo.link})
+        <Video controls src="/domain_buy.mp4" />
       </Text>
       {error && (
         <ErrorContainer>
@@ -112,6 +113,11 @@ const Summary = () => {
     </SectionWrapper>
   );
 };
+
+const Video = styled.video`
+  width: 100%;
+  margin-top: 15px;
+`;
 
 const ErrorContainer = styled.div`
   text-align: center;
