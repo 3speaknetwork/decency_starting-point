@@ -128,7 +128,8 @@ const ErrorContainer = styled.div`
   color: red;
   font-size: 16px;
   font-weight: 500;
-  max-width: 50%;
+  max-width: 32rem;
+  margin-bottom: 2rem;
 
   a {
     color: blue;
