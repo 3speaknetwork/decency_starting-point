@@ -39,7 +39,7 @@ export const CommunityCustomize: React.FC<Props> = ({ onNext }) => {
         }
       })();
     }
-  }, []);
+  }, [info.hive_id]);
 
   return (
     <SectionWrapper>

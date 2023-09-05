@@ -4,7 +4,9 @@ import styled from "styled-components";
 
 import HeroImage from "assets/images/hero_img.png";
 import { SectionWrapper } from "components/wrappers/sectionWrapper";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
+import { PrimaryButton } from "components/items/primaryButton";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -33,6 +35,9 @@ export const Hero = () => {
           </Text>
         </TextContainer>
       </HeroWrapper>
+      <Link passHref={true} href="/setup/community">
+        <PrimaryButton>Setup community</PrimaryButton>
+      </Link>
     </SectionWrapper>
   );
 };
